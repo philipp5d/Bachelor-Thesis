@@ -1,0 +1,184 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Part
+Dataset
+\end_layout
+
+\begin_layout Standard
+The university hospital Freiburg has a database of approximately 300.000
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+footnote based on mertelsmann guess
+\end_layout
+
+\end_inset
+
+ physician letters.
+ For every patient the database contains several letters, as a new visit
+ will often result in a modified letter that will be stored as well.
+ These physician letters are free text documents written by the doctors
+ to keep record of the patient's visit.
+ They usually include information about the patient's age, sex, diagnosed
+ diseases, therapy history, current complaints, many more medical details
+ like blood counts, but also personal information like names and birthdates.
+ The letters usually follow a rough structure, but doctors are in principal
+ free to document the information in the way they please.
+ 
+\end_layout
+
+\begin_layout Standard
+From this database we acquired a subset of 307 letters with the help of
+ former medical director 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+whats the real title?
+\end_layout
+
+\end_inset
+
+Professor Dr.
+ Drs.
+ h.c.
+ Roland Mertelsmann and his student Vera Hilmer.
+ Professor Mertelsmann selected the letters of cancer patients he had treated
+ over a recent period of time and Vera Hilmer made them anonymous, so they
+ could be shared with us.
+ This procedure consumed considerable time and money and is not scalable
+ to the whole database.
+ Methods for semi-automatic anonymization and other possible solutions will
+ be discussed below.
+ Note also that not all of the letters were written by Prof Mertelsmann,
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+can i get numbers?
+\end_layout
+
+\end_inset
+
+which is an important aspect for the evalutation of our algorithms.
+ Unfortunately 18 of the 307 letters are duplicates and thereby not usable
+ for our analysis.
+ We excluded another 3 letters, that contain almost no information about
+ the patient (this kind of letter is produced due to the specific kind of
+ documentation process at the clinic).
+ Another 17 are 
+\begin_inset Quotes eld
+\end_inset
+
+follow-up
+\begin_inset Quotes erd
+\end_inset
+
+ letters i.e.
+ letters of the same patient at a later point in time.
+ This left us with the letters of 269 individual patients (the follow-up
+ letters were only used where stated explicitly).
+ Note that it is not a trivial task to ensure that the set of letters contains
+ neither duplicates nor follow-ups.
+ Automated aids for this problem will be discussed below.
+\end_layout
+
+\begin_layout Standard
+For our goals of extracting information from and finding similarities between
+ the letters we additionally needed supervised information.
+ For a subset of 135 letters we obtained supervised labels of two kinds.
+ One, we manually labeled the letters for whether or not the patients suffered
+ from specific diseases common among those patiens.
+ These labels were checked by Prof.
+ Mertelsmann for correctness.
+ Two, Prof.
+ Mertelsmann provided us with a grouping of these 135 patients into 50 non-overl
+apping groups.
+ This grouping is meant to reflect his expert intuition about similarities
+ between patients, that might not be capturable in simple rule based (disease
+ based) grouping approaches.
+ These groups are then used as information about how physician letters should
+ be rated as similar.
+ After using this data to tweak our algorithm to produce good similarity
+ ratings, we performed a psychological experiment with [replace] medicine
+ students and [replace] doctors.
+ We thereby obtained more human expert intuition information about how well
+ our algorithms find similarities.
+ With these data we tried several approaches for automatic extraction of
+ information from the letters and automatic similarity ratings between them.
+ The methods used in our approaches are described in the next chapter.
+\end_layout
+
+\end_body
+\end_document

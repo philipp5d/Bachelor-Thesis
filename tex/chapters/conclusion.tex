@@ -1,0 +1,12 @@
+% !TEX root = ../Thesis.tex
+\begin{document}
+\documentclass[Thesis.tex]{subfiles}
+\chapter{Conlusion / Discussion / Further Work}
+\label{ch:conlc}
+
+We showed that it is possible to automatically retrieve physician letters that are similar to a reference letter from a database. We evaluated that our automatic similarity ratings match well with expert intuitions of similarities.
+
+Further work should address whether agreement between expert intuition and machine rating is high enough that a system like our prototype is useful in practice for doctors in a hospital (Vielleicht können wir das auch schon sagen). Such a system can then be deployed in the university hospital in Freiburg. If doctor's responses to the system are positive extensions of the system are possible. Deploying the system in another hospital or combining the databases of two hospitals are possible further paths from there. 
+However, when letters are exchanged between clinics issues of anonymization will have to be addressed. In case letters have to be made anonymous before exchange the paragraph classification of this thesis can serve as a starting point for semi-automatic anonymization. Unnecessary parts of the letter (like the greeting) can be excluded. Thereby reducing the amount of work necessary for anonymization by quite a bit. Not only less text has to be read, but also the paragraphs containing most personal information are excluded this way.
+
+\end{document}

@@ -1,0 +1,52 @@
+% !TEX root = ../Thesis.tex
+\documentclass[Thesis.tex]{subfiles}
+\begin{document}
+\chapter{Dataset}
+\label{ch:dataset}
+
+The university hospital Freiburg has a database of approximately 190,000 German
+physician letters in PDF form \citep{spadaro2012} (in der clinicon Beschreibung heißt es 190.000 medizinische Dokumente und Arztbriefe) (noch nicht zufrieden, wie das item in der bibliography erscheint. Ich weiß allerdings auch nicht wie es richtig wäre.). These physician letters are free text documents
+written by the doctors to keep record of the patient's visit. They
+usually include information about the patient's age, sex, diagnosed
+diseases, therapy history, current complaints, many more medical details
+like blood counts, but also personal information like names and birth dates.
+The letters usually follow a rough structure. Almost all of them include a letter head (a greeting and introduction), a diagnosis (summarizing diagnosed diseases bullet point like), a therapy history (listing the past therapies with dates) and an anamnesis (free text about current complaints etc.) section, separated into individual paragraphs. In principal though, doctors are free to document this information in the way they please.
+The database does not, however, contain the information of 190,000 unique patients. For many patients several letters are included, as a new visit will often result in an updated letter, that is added to the database.
+
+From this database we acquired a subset of 307 anonymous letters % with the help
+%of former medical director Professor Dr. Drs. h.c. Roland Mertelsmann
+%and his student Vera Hilmer 
+in Microsoft Word XML format. %Professor Mertelsmann selected the letters
+%of cancer patients he had treated over a recent period of time and
+%Vera Hilmer made them anonymous, so they could be shared with us.
+%This procedure consumed considerable time and money and is not scalable
+%to the whole database. Methods for semi-automatic anonymization and
+%other possible solutions will be discussed below. Note also that not
+%all of the letters were written by Prof Mertelsmann, which is an
+%important aspect for the evaluation of our algorithms (Will have to change this depending on who has written the %letters).
+Unfortunately 18 of the 307 letters are duplicates and thereby not usable for our
+analysis. We excluded another 3 letters, that contain almost no information
+about the patient (this kind of letter is produced due to the specific
+kind of documentation process at the clinic). Another 17 are ``follow-up''
+letters i.e. letters of the same patient at a later point in time.
+This left us with the letters of 269 individual patients (the follow-up
+letters were only used where stated explicitly). Note that it is not
+a trivial task to ensure that the set of letters contains neither
+duplicates nor follow-ups. Automated aids for this problem will be
+discussed below.
+
+For our goals of automatically extracting information from and finding similarities
+between the letters we additionally needed supervised information.
+For a subset of 135 letters we obtained supervised labels of two kinds.
+One, we manually labeled the letters for whether or not the patients
+suffered from specific diseases common among those patients. These
+labels were checked by an expert %Prof. Mertelsmann
+ for correctness. Two, %Prof. Mertelsmann
+we obtained a grouping of these 135 patients into 50 non-overlapping groups from an expert.
+This grouping is meant to reflect the expert's
+intuition about similarities between patients, that might not be capturable
+in simple rule based grouping approaches like grouping by disease. Additionally we performed a psychological experiment with {[}replace{]} medicine students and {[}replace{]} doctors, probing their intuition about letter similarity for a larger set. With these data we tried several
+approaches for automatic extraction of information from the letters
+and automatic similarity ratings between them. The methods used in our approaches are described in the next chapter.
+
+\end{document}

@@ -1,0 +1,137 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Aamodt \harvardand\ Plaza}{1994}{Aamodt1994}
+Aamodt, A. \harvardand\ Plaza, E.  \harvardyearleft 1994\harvardyearright ,
+  `{Case-Based Reasoning: Foundational Issues, Methodological Variations, and
+  System Approaches}', {\em AI COMMUNICATIONS} {\bf 7}(1),~39--59.
+
+\harvarditem[Begum et~al.]{Begum, Ahmed, Funk, Xiong \harvardand\
+  Folke}{2011}{Begum2011}
+Begum, S., Ahmed, M.~U., Funk, P., Xiong, N. \harvardand\ Folke, M.
+  \harvardyearleft 2011\harvardyearright , `{Case-Based Reasoning Systems in
+  the Health Sciences: A Survey of Recent Trends and Developments}', {\em IEEE
+  Transactions on Systems, Man, and Cybernetics} {\bf 41}(4),~421--434.
+
+\harvarditem[Bengio et~al.]{Bengio, Vincent \harvardand\
+  Jauvin}{2003}{Bengio2003}
+Bengio, Y., Vincent, P. \harvardand\ Jauvin, C.  \harvardyearleft
+  2003\harvardyearright , `{A Neural Probabilistic Language Model}', {\em
+  Machine Learning Research} {\bf 3},~1137--1155.
+
+\harvarditem[Blei et~al.]{Blei, Ng \harvardand\ Jordan}{2003}{Blei2003}
+Blei, D.~M., Ng, A.~Y. \harvardand\ Jordan, M.~I.  \harvardyearleft
+  2003\harvardyearright , `{Latent Dirichlet Allocation}', {\em Machine
+  Learning Research} {\bf 3},~993--1022.
+
+\harvarditem[Deerwester et~al.]{Deerwester, Dumais, Furnas, Landauer
+  \harvardand\ Harshman}{1990}{Deerwester1990}
+Deerwester, S., Dumais, S.~T., Furnas, G.~W., Landauer, T.~K. \harvardand\
+  Harshman, R.  \harvardyearleft 1990\harvardyearright , `{Indexing by Latent
+  Semantic Analysis}', {\em American Society for Information Science} {\bf
+  41}(6),~391--407.
+
+\harvarditem[Dib et~al.]{Dib, Kidd \harvardand\ Saltman}{2008}{Dib2008}
+Dib, E.~G., Kidd, M.~R. \harvardand\ Saltman, D.~C.  \harvardyearleft
+  2008\harvardyearright , `{Case reports and the fight against cancer}', {\em
+  Journal of Medical Case Reports} {\bf 2}(1),~39.
+
+\harvarditem{Elstein \harvardand\ Schwarz}{2002}{Elstein2002}
+Elstein, A.~S. \harvardand\ Schwarz, A.  \harvardyearleft 2002\harvardyearright
+  , `{Clinical problem solving and diagnostic decision making: selective review
+  of the cognitive literature}', {\em British Medical Journal} {\bf
+  324}(March),~729--732.
+
+\harvarditem{Gutmann \harvardand\ Hyv{\"{a}}rinen}{2012}{Gutmann2012}
+Gutmann, M.~U. \harvardand\ Hyv{\"{a}}rinen, A.  \harvardyearleft
+  2012\harvardyearright , `{Noise-Contrastive Estimation of Unnormalized
+  Statistical Models, with Applications to Natural Image Statistics}', {\em
+  Machine Learning Research} {\bf 13},~307--361.
+
+\harvarditem{Kidd \harvardand\ Hubbard}{2007}{Kidd2007}
+Kidd, M. \harvardand\ Hubbard, C.  \harvardyearleft 2007\harvardyearright ,
+  `{Introducing Journal of Medical Case Reports}', {\em Journal of Medical Case
+  Reports} {\bf 1},~1.
+
+\harvarditem{Klein}{2008}{Klein2008}
+Klein, G.  \harvardyearleft 2008\harvardyearright , `{Naturalistic Decision
+  Making}', {\em Human Factors: The Journal of the Human Factors and Ergonomics
+  Society} .
+
+\harvarditem{Kolodner \harvardand\ Kolodner}{1987}{Kolodner1987}
+Kolodner, J.~L. \harvardand\ Kolodner, R.~M.  \harvardyearleft
+  1987\harvardyearright , `{Using Experience in Clinical Problem Solving:
+  Introduction and Framework}', {\em IEEE Transactions on Systems, Man, and
+  Cybernetics} {\bf 17}(3).
+
+\harvarditem{Le \harvardand\ Mikolov}{2014}{Le2014}
+Le, Q. \harvardand\ Mikolov, T.  \harvardyearleft 2014\harvardyearright ,
+  {Distributed Representations of Sentences and Documents}, {\em in}
+  `Proceedings of the International Conference on Machine Learning', Vol.~32,
+  pp.~1188--1196.
+
+\harvarditem[Manning et~al.]{Manning, Raghavan \harvardand\
+  Sch{\"{u}}tze}{2008{\em a}}{Manning2008vect}
+Manning, C.~D., Raghavan, P. \harvardand\ Sch{\"{u}}tze, H.  \harvardyearleft
+  2008{\em a}\harvardyearright , {Scoring, term weighting and the vector space
+  model}, {\em in} `Introduction to Information Retrieval', Cambridge
+  University Press, chapter~6, pp.~117--120.
+
+\harvarditem[Manning et~al.]{Manning, Raghavan \harvardand\
+  Sch{\"{u}}tze}{2008{\em b}}{Manning2008prepr}
+Manning, C.~D., Raghavan, P. \harvardand\ Sch{\"{u}}tze, H.  \harvardyearleft
+  2008{\em b}\harvardyearright , {The term vocabulary and postings lists}, {\em
+  in} `Introduction to Information Retrieval', Cambridge University Press,
+  chapter~2, pp.~22--27, 32--34.
+
+\harvarditem{Mason}{2001}{Mason2001}
+Mason, R.~A.  \harvardyearleft 2001\harvardyearright , `{The case report - an
+  endangered species?}', {\em Anaesthesia} {\bf 56}(2),~99--102.
+
+\harvarditem{Medin \harvardand\ Schaffer}{1978}{Medin1978}
+Medin, D.~L. \harvardand\ Schaffer, M.~M.  \harvardyearleft
+  1978\harvardyearright , `{Context Theory of Classification Learning}', {\em
+  Psychological Review} {\bf 85}(3),~207--238.
+
+\harvarditem{Mikolov, Chen, Corrado \harvardand\ Dean}{2013}{Mikolov2013a}
+Mikolov, T., Chen, K., Corrado, G. \harvardand\ Dean, J.  \harvardyearleft
+  2013\harvardyearright , {Efficient Estimation of Word Representations in
+  Vector Space}, {\em in} `Proceedings of Workshop at the International
+  Conference on Learning Representations'.
+
+\harvarditem{Mikolov, Sutskever, Chen, Corrado \harvardand\
+  Dean}{2013}{Mikolov2013b}
+Mikolov, T., Sutskever, I., Chen, K., Corrado, G. \harvardand\ Dean, J.
+  \harvardyearleft 2013\harvardyearright , {Distributed Representations of
+  Words and Phrases and their Compositionality}, {\em in} `Advances in Neural
+  Information Processing Systems', pp.~3111--3119.
+
+\harvarditem{Morin \harvardand\ Bengio}{2005}{Morin2005}
+Morin, F. \harvardand\ Bengio, Y.  \harvardyearleft 2005\harvardyearright ,
+  {Hierarchical Probabilistic Neural Network Language Model}, {\em in}
+  `Proceedings of the international workshop on artificial intelligence and
+  statistics', pp.~246--252.
+
+\harvarditem{Nissen \harvardand\ Wynn}{2014}{Nissen2014}
+Nissen, T. \harvardand\ Wynn, R.  \harvardyearleft 2014\harvardyearright ,
+  `{The clinical case report: a review of its merits and limitations}', {\em
+  BioMedCentral Research Notes} {\bf 7}(1),~264.
+
+\harvarditem[Sandu et~al.]{Sandu, Chowdhury \harvardand\
+  Schaller}{2016}{Sandu2016}
+Sandu, N., Chowdhury, T. \harvardand\ Schaller, B.~J.  \harvardyearleft
+  2016\harvardyearright , `{How to apply case reports in clinical practice
+  using surrogate models via example of the trigeminocardiac reflex}', {\em
+  Journal of Medical Case Reports} {\bf 10}(1),~84.
+\newline\harvardurl{http://dx.doi.org/10.1186/s13256-016-0849-z}
+
+\harvarditem{Spadaro}{2012}{spadaro2012}
+Spadaro, S.  \harvardyearleft 2012\harvardyearright , {ClinicOn
+  Kurzbeschreibung f{\"{u}}r neue und interessierte Anwender}, Technical
+  report.
+
+\harvarditem{Williams}{2003}{Williams2003}
+Williams, D. D.~R.  \harvardyearleft 2003\harvardyearright , `{In defence of
+  the case report}', {\em The Royal College of Psychiatrists} {\bf
+  184},~84--88.
+
+\end{thebibliography}

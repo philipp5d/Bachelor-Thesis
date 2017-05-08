@@ -1,0 +1,218 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Part
+Results
+\end_layout
+
+\begin_layout Section
+Duplicate Detection
+\end_layout
+
+\begin_layout Standard
+Looking at our dataset we realized that we had to deal with two duplication
+ problems.
+ The first being that several letters were contained more than once in our
+ dataset.
+ The second, more challenging problem was that for several patients letters
+ of different time points with somewhat different content were present.
+ To ensure we would not to distort our results, because of duplicates present
+ in our test set, we tried to identify all duplicates of the two kinds.
+ On first glance at least the first problem seems easy.
+ Finding exact duplicates is not a challenging task.
+ However, as the letters were made anonymous separately, they are not exact
+ copies of each other.
+ Names and other personal information were eradicated from the word documents
+ by hand, so extra whitespaces and similar subtle differences were introduced.
+ For a subset of 150 of the letters we manually searched for the duplicates.
+ However, this work is tedious, error-prone and does not scale to bigger
+ datasets.
+ To semi-automatically find the true duplicates and the follow-up letters
+ we used two approaches.
+\end_layout
+
+\begin_layout Standard
+The first method searches two letters for their longest common subsequence
+ of characters.
+ If this longest common subsequence exceeds a threshold relative to the
+ longer document (e.g.
+ 3 % of the length of the longer document), then the two letters are marked
+ as possibly related.
+ In the second approach we use the bag of words representations of the documents
+ and their cosine distance in the vector space as an indicator.
+ If the distance between two vectors is lower than a threshold (e.g.
+ 0.2), they are also marked as possibly related.
+\end_layout
+
+\begin_layout Standard
+We start in both methods with high tresholds, manually check the results
+ and successively lower them until the false positive rate becomes too high.
+ With this procedure we were able to quickly find all the duplicate pairs
+ we already found manually before.
+ Additionally we found two follow-up pairs among the 150 that we did not
+ identify with the manual procedure.
+ The bag of words approach is somewhat more reliable and identified almost
+ all the duplicates, before including false positives.
+ However, we were not able to find a few other duplicates pairs, that the
+ string matching procedure quickly identified.
+ So it seems worth the effort to use both methods.
+\end_layout
+
+\begin_layout Standard
+Later we found one more follow-up pair by chance.
+ However, these two letters are radically different in content and so this
+ event does not undermine our confidence, that we were able to find a sufficient
+ portion of the duplicate pairs to not distort our test results.
+\end_layout
+
+\begin_layout Section
+Paragraph Extraction
+\end_layout
+
+\begin_layout Standard
+As already mentioned above, the letters almost always contain separate paragraph
+s like greeting, diagnosis, therapy history and anmnesis.
+ To be able to hide unnecessary information or to only present requested
+ information it would be useful to automatically extract individual paragraphs
+ from the documents.
+ As the documents are similar in structure and the word xml format allows
+ to automatically examine the xml tree structure of a document easily, we
+ use a rule based approach for extracting the individual paragraphs.
+ One of this rules is shown exemplary in pseudocode:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+diagnose_rx = ((
+\backslash
+n)+|^)( )?[dD]iagnose(n)?
+\end_layout
+
+\begin_layout Plain Layout
+
+text = this_xml_node.text()
+\end_layout
+
+\begin_layout Plain Layout
+
+if reg_exp_match(text, diagnose_rx)
+\end_layout
+
+\begin_layout Plain Layout
+
+		and boldface(text)
+\end_layout
+
+\begin_layout Plain Layout
+
+		and preceded_by_newline(this_xml_node):
+\end_layout
+
+\begin_layout Plain Layout
+
+then:
+\end_layout
+
+\begin_layout Plain Layout
+
+	diagnose_start = this_xml_node
+\end_layout
+
+\end_inset
+
+With a set of rules like the one above we automatically extract the paragraphs
+ of interest from the documents.
+ This approach, however, is not very reliable, as the doctors are free to
+ write the documents in the way they please.
+ Indeed we find several wrongly extracted paragraphs, that e.g.
+ include the subsequent paragraph as well.
+ For our dataset it is possible to check the extraction process by hand.
+ However, this is a tedious and error-prone process and it does not scale
+ to bigger datasets.
+ We therefore explore whether we can in principle make use of other automated
+ methods to find paragraphs for which the extraction process does not produce
+ desired results.
+ We therefore take the extracted diagnosis paragraph and convert them to
+ their bag of words representation.
+ To get a feeling for how these vectors behave we use Principle Component
+ Analysis to get a lower dimensional approximation, that is a linear subspace
+ of the original space and keeps as much variance as possible.
+ See Figure ...
+ for a 2D PCA plot of the bag of words representation of one incorreclty
+ extracted diagnose paragraph and some correctly classified ones.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,61 @@
+\documentclass[11pt, twoside, openright, utf8, bachelor, english, subfiles]{base/thesis}
+
+\usepackage[english]{babel}
+%\usepackage{cite}
+\usepackage{natbib}
+\bibpunct{(}{)}{;}{a}{,}{,}
+\bibliographystyle{agsm}
+
+\usepackage{tikz}    
+
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listing}
+
+\usepackage[]{algorithm2e}
+
+
+% for the pdf meta data to work properly, these have to be set in the preamble
+\institute{Institute of Cognitive Science}
+% \workgroup{<workgroup>}
+\title{A textual recommender system and other text mining applications for clinical data}
+\author{Philipp Hummel}
+\city{Osnabrück}
+\submitdate{\today}
+\firstSupervisor{Dr. Frank Jäkel}
+\secondSupervisor{Prof. Dr. Gordon Pipa}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\subfile{chapters/abstract}
+\end{abstract}
+
+\begin{acknowledgements}
+ acknowledgements
+\end{acknowledgements}
+
+\tableofcontents
+
+\mainpart
+\subfile{chapters/introduction}
+\subfile{chapters/dataset}
+\subfile{chapters/methods}
+\subfile{chapters/results}
+\subfile{chapters/experiment}
+\subfile{chapters/prototype}
+\subfile{chapters/conclusion}
+
+\appendix
+
+% appendixcontents: 
+%\listoffigures
+
+\bibliographystyle{apalike}
+\bibliography{thesis_bibliography}
+
+
+\declaration
+
+\end{document}

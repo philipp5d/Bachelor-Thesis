@@ -1,0 +1,1081 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Materials and Methods
+\end_layout
+
+\begin_layout Subsection
+Notes on Notation and Naming Conventions
+\end_layout
+
+\begin_layout Standard
+In this thesis vectors are represented by lowercase boldface characters
+ such as 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ and matrices by uppercase boldface letters such as 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In the context of Natural Language Processing the words 
+\begin_inset Quotes eld
+\end_inset
+
+document
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+text
+\begin_inset Quotes erd
+\end_inset
+
+ are used interchangably and refer to texts of variable length such as sentences
+, paragrags or whole documents.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+term
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+word
+\begin_inset Quotes erd
+\end_inset
+
+ are also used almost interchangably, while 
+\begin_inset Quotes eld
+\end_inset
+
+term
+\begin_inset Quotes erd
+\end_inset
+
+ more generally refers to an entity within the text, that might be composed
+ of several 
+\begin_inset Quotes eld
+\end_inset
+
+words
+\begin_inset Quotes erd
+\end_inset
+
+, for example 
+\begin_inset Quotes eld
+\end_inset
+
+New York
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Preprocessing
+\end_layout
+
+\begin_layout Standard
+One very common way of representing text in a computer is to view the text
+ as a sequence of individual characters, a string.
+ However, for many methods of information retrieval and machine learning,
+ including the ones described subsequently, the units of text we would like
+ to deal with are words or terms not sequences of characters.
+ The process of extracting words or terms from a sequence of characters
+ is known as tokenization.
+ A first naive approach to tokenization might be to split the sequence of
+ characters on every whitespace and regard everything in between as a word.
+ This approach, however, can easily lead to unexpected results.
+ Consider the example string 
+\begin_inset Quotes eld
+\end_inset
+
+john loves mary.
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The naive approach yields the words 
+\begin_inset Quotes eld
+\end_inset
+
+john
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+loves
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+mary.
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Note how the last word contains the punctuation character 
+\begin_inset Quotes eld
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+.
+ So even for very easy examples the naive approach doesn't produce expected
+ results.
+ Luckily many more sophisticated algorithms are implemented in ready-to-use
+ open-source software packages.
+\end_layout
+
+\begin_layout Standard
+A second common step in preprocessing is the removal of so called stop words.
+ Stop words are usually the most commonly used words of a language, that
+ do not contain much meaning, e.g.
+ words like 
+\begin_inset Quotes eld
+\end_inset
+
+the
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+a
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+just
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+some
+\begin_inset Quotes erd
+\end_inset
+
+.
+ While they are necessary for the grammatical structure of a language, they
+ do not convey much information about the similarity of documents and can
+ be disregarded in further analysis steps.
+\end_layout
+
+\begin_layout Standard
+Another often used preprocessing method is stemming.
+ Stemming refers to the process of mapping (inflected) words to their stems,
+ e.g.
+ mapping words such as 
+\begin_inset Quotes eld
+\end_inset
+
+am
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+is
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+are
+\begin_inset Quotes erd
+\end_inset
+
+ to the word 
+\begin_inset Quotes eld
+\end_inset
+
+be
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The rationale behind using stemming is that for finding e.g.
+ the topic of a text it should not matter which form of the word is present
+ in a text, but only that a word is present in a text.
+\end_layout
+
+\begin_layout Standard
+All three preprocessing steps described above are used in this thesis except
+ where noted otherwise.
+ The python package NLTK (natural language toolkit) provides many specific
+ implementations of these algorithms and was used troughout this thesis.
+ For tokenization the 
+\begin_inset Quotes eld
+\end_inset
+
+TreebankWordTokenizer
+\begin_inset Quotes erd
+\end_inset
+
+ and for stemming the 
+\begin_inset Quotes eld
+\end_inset
+
+SnowballStemmer
+\begin_inset Quotes erd
+\end_inset
+
+ are used.
+\end_layout
+
+\begin_layout Subsection
+Bag of Words
+\end_layout
+
+\begin_layout Standard
+After preprocessing of a text one of the standard approaches for representing
+ documents for information retrieval and machine learning algorithms is
+ in the bag of words model.
+ In the bag of words model a text is represented by the multiset (bag) of
+ its words.
+ That means all word order information is disregarded and only the information
+ whether (or how often) a word is present in a text is encoded.
+\end_layout
+
+\begin_layout Standard
+In this model documents can easily be represented as fixed length feature
+ vectors, where every feature is a kind of word occurrence count.
+ In the simplest approach every feature is the term frequency 
+\begin_inset Formula $tf(t,d)$
+\end_inset
+
+ of term 
+\begin_inset Formula $t$
+\end_inset
+
+ in a document 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Where 
+\begin_inset Formula $tf(t,d)$
+\end_inset
+
+ is simply the occurence count of word 
+\begin_inset Formula $t$
+\end_inset
+
+ in document 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ To compute feature vectors for documents in a corpus the vocabulary 
+\begin_inset Formula $V$
+\end_inset
+
+ of the corpus needs to be established first.
+ Documents are represnted by a 
+\begin_inset Formula $1\times|V|$
+\end_inset
+
+ vector of the values 
+\begin_inset Formula $tf(t,d)$
+\end_inset
+
+ for all 
+\begin_inset Formula $t\in V$
+\end_inset
+
+.
+ Assume the corpus consists of two documents 
+\begin_inset Formula $d_{1}=$
+\end_inset
+
+
+\begin_inset Quotes eld
+\end_inset
+
+john loves mary
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Formula $d_{2}=$
+\end_inset
+
+
+\begin_inset Quotes eld
+\end_inset
+
+mary loves pizza
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The vectors representing the two texts are:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x_{1}=\begin{array}{c}
+1\\
+1\\
+1\\
+0
+\end{array}\ x_{2}=\begin{array}{c}
+0\\
+1\\
+1\\
+1
+\end{array}\ \begin{array}{c}
+john\\
+loves\\
+mary\\
+pizza
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This representation oviously has severe limitation, consider for example
+ the two sentences 
+\begin_inset Formula $d_{3}=$
+\end_inset
+
+
+\begin_inset Quotes eld
+\end_inset
+
+john loves mary
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Formula $d_{4}$
+\end_inset
+
+=
+\begin_inset Quotes eld
+\end_inset
+
+mary loves jon
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Their representation in the bag of words model is equivalent, although
+ they express quite different meanings.
+ Still the bag of words model is a standard approach for information retrieval
+ problems, as it has many desirable properties.
+ For example documents can be expressed as a fixed length vector, necessary
+ for many machine learning tasks, and distances in the vector space can
+ straight forwardly be interpreted as a measure for document similarities.
+ In information retrieval often the focus lies on the topic of a text rather
+ than it's specific content.
+ Some of the weaknesses of the bag of words approach are then neglectable.
+ Consider again the sentences 
+\begin_inset Formula $d_{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{4}$
+\end_inset
+
+ and additionally the sentence 
+\begin_inset Formula $d_{5}=$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+computers automate tasks
+\begin_inset Quotes erd
+\end_inset
+
+.
+ If we are interested in the topic of the sentences or in their relevance
+ to each other, then the bag of words model will give the reasonable result
+ that 
+\begin_inset Formula $d_{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{4}$
+\end_inset
+
+ are more relevant to each other than to 
+\begin_inset Formula $d_{5}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+N-Grams
+\end_layout
+
+\begin_layout Standard
+In order to extend the bag of words representation to capture word order
+ to some extent n-grams have been proposed.
+ The idea of n-grams is to treat a sequence of n words as a distinct token
+ or term.
+ For the sentence 
+\begin_inset Formula $d_{3}$
+\end_inset
+
+ the list of 2-grams or bigrams is [(john, loves), (loves mary)] and for
+ 
+\begin_inset Formula $d_{4}$
+\end_inset
+
+it is [(mary, loves), (loves, john)].
+ So the problem of the equivalent representation of 
+\begin_inset Formula $d_{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{4}$
+\end_inset
+
+ has been solved by capturing word order information in small context windows.
+ However, this comes at the cost of a higher dimensionality of the resulting
+ feature vector as there are more distinct n-grams in a corpus than single
+ words.
+ In principle the cardinality of the n-gram vocabulary could be as large
+ as 
+\begin_inset Formula $|V_{n}|=|V_{1}|^{n}$
+\end_inset
+
+, where 
+\begin_inset Formula $V_{n}$
+\end_inset
+
+ is the n-gram vocabulary.
+ However, in natural texts not all possible n-grams occur and the feature
+ vector dimensinality grows more moderately than an exponential function
+ with increasing 
+\begin_inset Formula $n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Term Frequency - Inverse Document Frequency
+\end_layout
+
+\begin_layout Standard
+A common problem with the bag of words model is that some terms (even after
+ filtering stop words) appear often across texts in a corpus, i.e.
+ have a high term frequency yet do not constitute a good feature for discriminat
+ion between texts.
+ Therefore a scaling factor for the term frequencies is desired which captures
+ the intuition that words appearing often in a few texts but rarely in others
+ are good discriminative features for those texts.
+ Term Frequency - Inverse Document Frequency (tf-idf) refers to a specific
+ scaling scheme, that downscales the importance of frequent words, while
+ upscaling the importance of rare words.
+ 
+\end_layout
+
+\begin_layout Standard
+Term frequency 
+\begin_inset Formula $tf(t,d)$
+\end_inset
+
+ usually refers to the standard word count.
+ Inverse document frequency 
+\begin_inset Formula $idf(t,C)$
+\end_inset
+
+ of term 
+\begin_inset Formula $t$
+\end_inset
+
+ and corpus 
+\begin_inset Formula $C$
+\end_inset
+
+ can be computed as 
+\begin_inset Formula 
+\[
+idf(t,C)=log_{2}(\frac{|C|}{|\{d\in C:t\in d\}|})
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $|C|$
+\end_inset
+
+ is the total number of documents in the corpus and 
+\begin_inset Formula $|\{d\in C:t\in d\}|$
+\end_inset
+
+ is the number of documents in which term 
+\begin_inset Formula $t$
+\end_inset
+
+ appears at least once.
+\end_layout
+
+\begin_layout Standard
+Term frequency - Inverse document frequency 
+\begin_inset Formula $tfidf(t,d,C)$
+\end_inset
+
+ is then calculated as 
+\begin_inset Formula 
+\[
+tfidf(t,d,C)=tf(t,d)\cdot idf(t,C)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+tf-idf can be used as a feature for the representation of the document that
+ is more robust to uninformative changes in the distribution of common words
+ and more expressive for rare words.
+\end_layout
+
+\begin_layout Subsection
+Latent Semantic Analysis
+\end_layout
+
+\begin_layout Standard
+An often occuring machine learning problem is that very high dimensional
+ feature vectors, as occuring in bag of words models described above, tend
+ to generalize poorly in subsequent tasks like classification.
+ Therefore it is desirable to have a more condensed lower dimensional feature
+ representation of documents that still captures most of the variance in
+ the bag of words representation.
+ Latent semantic analysis (LSA) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+ in its simplest form takes the plain bag of words vectors of all documents
+ in the corpus and constructs a term-document matrix 
+\begin_inset Formula $M$
+\end_inset
+
+, where 
+\begin_inset Formula $M[i,j]=tf(t_{i},d_{j})$
+\end_inset
+
+, i.e.
+ row 
+\begin_inset Formula $i$
+\end_inset
+
+ represents the relation of term 
+\begin_inset Formula $i$
+\end_inset
+
+ to all documents, while column 
+\begin_inset Formula $j$
+\end_inset
+
+ represents one document and the relation to all it's terms and is equivalent
+ to the bag of words representation of that document.
+\begin_inset Formula 
+\[
+\begin{matrix} & \textbf{d}_{j}\\
+ & \downarrow\\
+\textbf{t}_{i}^{T}\rightarrow & \begin{bmatrix}tf(1,1) & \dots & tf(1,|C|)\\
+\vdots & \ddots & \vdots\\
+tf(|V|,1) & \dots & tf(|V|,|C|)
+\end{bmatrix}
+\end{matrix}
+\]
+
+\end_inset
+
+Singular value decomposition is then used on the term document matrix 
+\begin_inset Formula $M$
+\end_inset
+
+, allowing to find a 
+\begin_inset Formula $k$
+\end_inset
+
+-dimensional (
+\begin_inset Formula $k<M$
+\end_inset
+
+) linear subspace of 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $\hat{M}$
+\end_inset
+
+, that still captures as much of the original information as possible, i.e.
+ that captures as much of the variance in the original space as possible.
+ Column 
+\begin_inset Formula $j$
+\end_inset
+
+ of 
+\begin_inset Formula $\hat{M}$
+\end_inset
+
+ contains a 
+\begin_inset Formula $k$
+\end_inset
+
+-dimensional, approximate representation of the document 
+\begin_inset Formula $d_{j}$
+\end_inset
+
+, called 
+\begin_inset Formula $\hat{d_{j}}$
+\end_inset
+
+.
+ The document representations 
+\begin_inset Formula $\hat{d}_{j}$
+\end_inset
+
+ in 
+\begin_inset Formula $M$
+\end_inset
+
+'s linear subspace spanned by 
+\begin_inset Formula $\hat{M}$
+\end_inset
+
+ do no longer have an intuitive interpretation as word counts, but can still
+ be used as feature vectors for subsequent ML tasks or can be analyzed for
+ similarity.
+ Deerwester et al.
+ argue that the resulting features have several appealing properties.
+ The LSA features can simply be viewed as a noise-reduced version of the
+ original features, but according to the original paper they can also better
+ deal with linguistic issues such as synonymy and polysemy.
+ This works because every original observation (i.e.
+ document) is represented as a linear combination of 
+\begin_inset Formula $k$
+\end_inset
+
+ hidden (or latent) semantic concepts.
+ Terms that often appear together (i.e.
+ are semantically related) will then be mapped onto similar LSA representations
+ and can thereby for example capture some aspects of synonymy.
+\end_layout
+
+\begin_layout Standard
+The value of 
+\begin_inset Formula $k$
+\end_inset
+
+ is a parameter of the model and has to be specified by the researcher.
+ LSA can be used with other word occurrence measures than term frequencies
+ such as n-gram or tf-idf.
+\end_layout
+
+\begin_layout Subsection
+Latent Dirichlet Allocation
+\end_layout
+
+\begin_layout Standard
+A popular probabilistic method for finding latent semantic features of documents
+ in a corpus is latent dirichlet allocation (LDA).
+ As with LSA the rationale is that it would be useful to find a shorter
+ or lower dimensional description for documents in the bag of words vector
+ space format for subsequent tasks.
+ In the LDA context the latent features are called topics and texts are
+ represented as probabilistic mixtures of these topics.
+ A topic is represented by a probability distribution over words and so
+ a document is represented as a probabilistic sample from topic distributions
+ of words.
+ As in the case of LSA the number of topics 
+\begin_inset Formula $k$
+\end_inset
+
+ is a parameter and needs to be specified by the researcher.
+ 
+\end_layout
+
+\begin_layout Subsection
+Word Vectors
+\end_layout
+
+\begin_layout Standard
+In the standard bag of words model no relationship between words is encoded,
+ i.e.
+ every word is dissimilar from every other word.
+ Thereby a lot of information is lost, as e.g.
+ the words 
+\begin_inset Quotes eld
+\end_inset
+
+car
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+automobile
+\begin_inset Quotes erd
+\end_inset
+
+ are considered by the system to be as similar to each other as to the word
+ 
+\begin_inset Quotes eld
+\end_inset
+
+blue
+\begin_inset Quotes erd
+\end_inset
+
+.
+ One way to encode relationships between words is to embed them in a vector
+ space.
+ Just like the way document similarities can be computed from their distances
+ in the vector space model, similarities of words can be computed, if the
+ words are represented as vectors.
+ A first successfull approach to this problem used the LSA model.
+ Here a single word can be represented as a pseudo document and thereby
+ be mapped into the LSA space.
+ The resulting vector in the LSA feature space can be considered a vector
+ representation for the word and be used for comparisons with other words
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In 2003 Bengio et al.
+ introduced a neural language model that used word vectors to predict subsequent
+ words in a text and updated the model as well as the vectors with gradient
+ descent.
+ It seems that by being useful for prediction of subsequent words, the vectors
+ represent statistical information about word contexts and capture meaning
+ of the words to some extent.
+\end_layout
+
+\begin_layout Standard
+In 2013 Mikolov et al.
+ proposed their influential Word2Vec model.
+ This model utilized a neural network for the prediction of word vectors,
+ given other nearby word vectors.
+ However, the authors focused on the refinement of the word vectors only
+ and were able to simplify the net substantially, while gaining word vector
+ 
+\begin_inset Quotes eld
+\end_inset
+
+performance
+\begin_inset Quotes erd
+\end_inset
+
+ (i.e.
+ vectors that perform better on a task designed to measure how well the
+ vectors capture human intuitions about the words).
+ Their model works simply with scalar products of input and output word
+ vectors (it has two vectors per word) and a softmax output layer for normalizat
+ion.
+ This model comes in two architectural types: 
+\begin_inset Quotes eld
+\end_inset
+
+Continous Bag of Words
+\begin_inset Quotes erd
+\end_inset
+
+ (CBOW) and 
+\begin_inset Quotes eld
+\end_inset
+
+Continous Skip-gram
+\begin_inset Quotes erd
+\end_inset
+
+ (skip-gram).
+ The former predicts the output vector of a center word, given the 
+\begin_inset Formula $n/2$
+\end_inset
+
+ previous and 
+\begin_inset Formula $n/2$
+\end_inset
+
+ subsequent input word vectors.
+ The input vectors of the 
+\begin_inset Formula $n$
+\end_inset
+
+ surrounding words are averaged, the scalar prodcut of this average with
+ every output word vector is computed and a softmax normalization produces
+ final output probabilities.
+ The skip-gram model utilizes the input vector of the center word to predict
+ the output vectors of surrounding words in a left and right context window
+ of maximal size 
+\begin_inset Formula $w$
+\end_inset
+
+.
+ The current window size 
+\begin_inset Formula $c$
+\end_inset
+
+ is sampled uniformly from 
+\begin_inset Formula $range(1,w)$
+\end_inset
+
+ at every iteration.
+ This results in 
+\begin_inset Formula $2\cdot c$
+\end_inset
+
+ predictions for every center word considered.
+ The model parameters are updated with gradient descent.
+ After training either only the input word vectors are used or the input
+ and output word vectors are either averaged or concatenated to produce
+ the final word vectors used for subsequent tasks.
+ 
+\end_layout
+
+\begin_layout Standard
+A note on computational cost: The softmax output layer is very inefficient
+ as it requires the computation of 
+\begin_inset Formula $|V|$
+\end_inset
+
+ scalar products (every word in the vocabulary).
+ As a first speed up a hierarchical softmax is used as an approximation
+ to the real softmax, that reduces the number of scalar product computations
+ to 
+\begin_inset Formula $log_{2}(|V|)$
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4,key-2"
+
+\end_inset
+
+.
+ In a subsequent publication 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-3"
+
+\end_inset
+
+ the authors introduced a simplified variant of Noise Contrastive Estimation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+, called Negative Sampling, that further reduces the computational complexity,
+ while still giving useful word vectors.
+ 
+\end_layout
+
+\begin_layout Standard
+With these architecture and approximation simplifications the Word2Vec model
+ is able to train on a vast amount of text data (billions of words) in a
+ matter of hours and thereby produce better word vectors, than previously
+ possible.
+\end_layout
+
+\begin_layout Subsection
+Paragraph Vector - An extension of Word2Vec
+\end_layout
+
+\begin_layout Standard
+A simple extension of the word2vec model allows to obtain vectors for sentences
+ or longer passages of text.
+ An additional vector is introduced for every piece of text, that we regard
+ as a separate entity (a sentence, a paragraph or a document).
+ This so called paragraph vector is then used in two different ways in the
+ extensions of CBOW and skip-gram.
+ In the Distributed Memory (DM) model, an extension of CBOW, the paragraph
+ vector is used in combination (average or concatenation) with the vectors
+ of surrounding words to predict a center word.
+ In the Distributed bag of words model, an extension of skip-gram, the paragraph
+ embedding is used to predict words randomly sampled from the paragraph.
+ After training the final paragraph vectors can be used as an embedding
+ for the corresponding paragraphs (documents) and subsequently be used like
+ the document embeddings of the methods described above.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+Deerwester LSA
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+Mikolov 2013a
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+Mikolov 2013b
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-4"
+
+\end_inset
+
+Frederic Morin and Yoshua Bengio.
+ Hierarchical probabilistic neural network language model.
+ First hierarchical softmax for NNLM
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-5"
+
+\end_inset
+
+Michael U Gutmann and Aapo Hyvärinen.
+ Noise-contrastive estimation of unnormalized statistical mod- els, with
+ applications to natural image statistics
+\end_layout
+
+\end_body
+\end_document
