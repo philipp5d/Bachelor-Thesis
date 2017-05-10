@@ -1,1 +1,7 @@
 Paper
+
+# Latex
+*.aux
+*.log
+*.out
+*.toc

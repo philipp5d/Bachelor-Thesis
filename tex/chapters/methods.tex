@@ -4,116 +4,116 @@
 \chapter{Methods}
 \label{ch:methods}
 
-\section{Notes on Notation and Naming Conventions}
-
-In this thesis vectors are represented by lowercase boldface characters
-such as $\mathbf{v}$ and matrices by uppercase boldface letters such
-as $\mathbf{M}$. 
-
-In the context of Natural Language Processing in this thesis the words ``document''
-and ``text'' are used interchangeably and refer to texts of variable
-length such as sentences, paragraphs or whole documents. ``term''
-and ``word'' are used interchangeably as well. Although ``term'' in general
-often refers to an entity within the text, that might be
-composed of several ``words'', for example ``New York'', here both will be used to refer to single words.
-
-
-\section{Preprocessing}
-
-One very common way of representing text in a computer is to view
-the text as a sequence of individual characters, a string. However,
-for many methods of information retrieval and machine learning, including
-the ones described subsequently, the units of text we would like to
-deal with are words or terms not sequences of characters. The process
-of extracting words or terms from a sequence of characters is known
-as tokenization \citep{Manning2008prepr}. A first naive approach to tokenization might be to
-split the sequence of characters on every whitespace and regard everything
-in between as a word. This approach, however, can easily lead to unexpected
-results. Consider the example string ``john loves mary.''. The naive
-approach yields the words ``john'', ``loves'' and ``mary.''.
-Note how the last word contains the punctuation character ``.''.
-So even for very easy examples the naive approach does not produce
-expected results. Luckily many more sophisticated algorithms are implemented
-in ready-to-use open-source software packages.
-
-A second common step in preprocessing is the removal of so called
-stop words. Stop words are usually the most commonly used words of
-a language, that do not contain much meaning, e.g. words like ``the'',
-``a'', ``just'' or ``some''. While they are necessary for the
-grammatical structure of a language, they do not convey much information
-about the similarity of documents and can be disregarded in further
-analysis steps \citep{Manning2008prepr}.
-
-Another often used preprocessing method is stemming. Stemming refers
-to the process of mapping (inflected) words to their stems, e.g. mapping
-words such as ``am'', ``is'' and ``are'' to the word ``be''.
-The rationale behind using stemming is that for finding e.g. the topic
-of a text it should not matter which form of the word is present in
-a text, but only that a word is present in a text \citep{Manning2008prepr}.
-
-All three preprocessing steps described above are used in this thesis
-except where noted otherwise. The python package NLTK (natural language
-toolkit) provides many specific implementations of these algorithms
-and was used throughout this thesis. For tokenization the ``TreebankWordTokenizer''
-and for stemming the ``SnowballStemmer'' are used. A list of German stopwords is also taken from the package.
+%\section{Notes on Notation and Naming Conventions}
+%
+%In this thesis vectors are represented by lowercase boldface characters
+%such as $\mathbf{v}$ and matrices by uppercase boldface letters such
+%as $\mathbf{M}$. 
+%
+%In the context of Natural Language Processing in this thesis the words ``document''
+%and ``text'' are used interchangeably and refer to texts of variable
+%length such as sentences, paragraphs or whole documents. ``term''
+%and ``word'' are used interchangeably as well. Although ``term'' in general
+%often refers to an entity within the text, that might be
+%composed of several ``words'', for example ``New York'', here both will be used to refer to single words.
 
 
-\section{Bag of Words}
-
-After preprocessing of a text one of the standard approaches for representing
-documents for information retrieval and machine learning algorithms
-is in the bag of words model. In the bag of words model a text is
-represented by the multiset (bag) of its words. That means all word
-order information is disregarded and only the information whether
-(or how often) a word is present in a text is encoded \citep{Manning2008vect}. (Mit der Art wie das Buch hier zitiert wird bin ich noch nicht glücklich. Es sollte eigentlich chapter 2 und 6 sein und nicht 2008 a und b.)
-
-In this model documents can easily be represented as fixed length
-feature vectors, where every feature is a kind of word occurrence
-count. In the simplest approach every feature is the term frequency
-$tf(t,d)$ of term $t$ in a document $d$. Where $tf(t,d)$ is simply
-the occurrence count of word $t$ in document $d$. To compute feature
-vectors for documents in a corpus the vocabulary $V$ of the corpus
-needs to be established first. Documents are represented by a $1\times|V|$
-vector of the values $tf(t,d)$ for all $t\in V$. Assume the corpus
-consists of two documents $d_{1}=$``john loves mary'' and $d_{2}=$``mary
-loves pizza''. The vectors representing the two texts are:
-
-\[
-\textbf{v}_{d_1}=\begin{array}{c}
-1\\
-1\\
-1\\
-0
-\end{array}\ \textbf{v}_{d_2}=\begin{array}{c}
-0\\
-1\\
-1\\
-1
-\end{array}\ \begin{array}{c}
-john\\
-loves\\
-mary\\
-pizza
-\end{array}
-\]
-
-
-This representation obviously has severe limitation, consider for example
-the two sentences $d_{3}=$``john loves mary'' and $d_{4}$=``mary
-loves jon''. Their representation in the bag of words model is equivalent,
-although they express quite different meanings. Still the bag of words
-model is a standard approach for information retrieval problems, as
-it has many desirable properties. For example documents can be expressed
-as a fixed length vector, necessary for many machine learning tasks,
-and distances in the vector space can straight forwardly be interpreted
-as a measure for document dissimilarities. In information retrieval often
-the focus lies on the topic of a text rather than it's specific content.
-Some of the weaknesses of the bag of words approach are then neglectable.
-Consider again the sentences $d_{3}$ and $d_{4}$ and additionally
-the sentence $d_{5}=$''computers automate tasks''. If we are interested
-in the topic of the sentences or in their relevance to each other,
-then the bag of words model will give the reasonable result that $d_{3}$
-and $d_{4}$ are more relevant to each other than to $d_{5}$.
+%\section{Preprocessing}
+%
+%One very common way of representing text in a computer is to view
+%the text as a sequence of individual characters, a string. However,
+%for many methods of information retrieval and machine learning, including
+%the ones described subsequently, the units of text we would like to
+%deal with are words or terms not sequences of characters. The process
+%of extracting words or terms from a sequence of characters is known
+%as tokenization \citep{Manning2008prepr}. A first naive approach to tokenization might be to
+%split the sequence of characters on every whitespace and regard everything
+%in between as a word. This approach, however, can easily lead to unexpected
+%results. Consider the example string ``john loves mary.''. The naive
+%approach yields the words ``john'', ``loves'' and ``mary.''.
+%Note how the last word contains the punctuation character ``.''.
+%So even for very easy examples the naive approach does not produce
+%expected results. Luckily many more sophisticated algorithms are implemented
+%in ready-to-use open-source software packages.
+%
+%A second common step in preprocessing is the removal of so called
+%stop words. Stop words are usually the most commonly used words of
+%a language, that do not contain much meaning, e.g. words like ``the'',
+%``a'', ``just'' or ``some''. While they are necessary for the
+%grammatical structure of a language, they do not convey much information
+%about the similarity of documents and can be disregarded in further
+%analysis steps \citep{Manning2008prepr}.
+%
+%Another often used preprocessing method is stemming. Stemming refers
+%to the process of mapping (inflected) words to their stems, e.g. mapping
+%words such as ``am'', ``is'' and ``are'' to the word ``be''.
+%The rationale behind using stemming is that for finding e.g. the topic
+%of a text it should not matter which form of the word is present in
+%a text, but only that a word is present in a text \citep{Manning2008prepr}.
+%
+%All three preprocessing steps described above are used in this thesis
+%except where noted otherwise. The python package NLTK (natural language
+%toolkit) provides many specific implementations of these algorithms
+%and was used throughout this thesis. For tokenization the ``TreebankWordTokenizer''
+%and for stemming the ``SnowballStemmer'' are used. A list of German stopwords is also taken from the package.
+%
+%
+%\section{Bag of Words}
+%
+%After preprocessing of a text one of the standard approaches for representing
+%documents for information retrieval and machine learning algorithms
+%is in the bag of words model. In the bag of words model a text is
+%represented by the multiset (bag) of its words. That means all word
+%order information is disregarded and only the information whether
+%(or how often) a word is present in a text is encoded \citep{Manning2008vect}. (Mit der Art wie das Buch hier zitiert wird bin ich noch nicht glücklich. Es sollte eigentlich chapter 2 und 6 sein und nicht 2008 a und b.)
+%
+%In this model documents are represented as fixed length
+%feature vectors, where every feature is a kind of word occurrence
+%count. In the simplest approach every feature is the term frequency
+%$tf(t,d)$ of term $t$ in a document $d$. Where $tf(t,d)$ is
+%the occurrence count of word $t$ in document $d$. To compute feature
+%vectors for documents in a corpus the vocabulary $V$ of the corpus
+%needs to be established first. Documents are represented by a $1\times|V|$
+%vector of the values $tf(t,d)$ for all $t\in V$. Assume the corpus
+%consists of two documents $d_{1}=$``john loves mary'' and $d_{2}=$``mary
+%loves pizza''. The vectors representing the two texts are:
+%
+%\[
+%\textbf{v}_{d_1}=\begin{array}{c}
+%1\\
+%1\\
+%1\\
+%0
+%\end{array}\ \textbf{v}_{d_2}=\begin{array}{c}
+%0\\
+%1\\
+%1\\
+%1
+%\end{array}\ \begin{array}{c}
+%john\\
+%loves\\
+%mary\\
+%pizza
+%\end{array}
+%\]
+%
+%
+%This representation obviously has severe limitation, consider for example
+%the two sentences $d_{3}=$``john loves mary'' and $d_{4}$=``mary
+%loves jon''. Their representation in the bag of words model is equivalent,
+%although they express quite different meanings. Still the bag of words
+%model is a standard approach for information retrieval problems, as
+%it has many desirable properties. For example documents can be expressed
+%as a fixed length vector, necessary for many machine learning tasks,
+%and distances in the vector space can straight forwardly be interpreted
+%as a measure for document dissimilarities. In information retrieval often
+%the focus lies on the topic of a text rather than it's specific content.
+%Some of the weaknesses of the bag of words approach are then neglectable.
+%Consider again the sentences $d_{3}$ and $d_{4}$ and additionally
+%the sentence $d_{5}=$''computers automate tasks''. If we are interested
+%in the topic of the sentences or in their relevance to each other,
+%then the bag of words model will give the reasonable result that $d_{3}$
+%and $d_{4}$ are more relevant to each other than to $d_{5}$.
 
 
 \section{N-Grams}
