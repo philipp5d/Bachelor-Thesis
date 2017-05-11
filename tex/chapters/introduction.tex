@@ -40,7 +40,7 @@ The letters generally follow a rough structure. Almost all of them include a let
 
 To get permission to use a subset of those letters for our experiment, it was necessary to ensure that all personal information was removed from them. A medical student of the university hospital was therefore paid to manually anonymize 307 of the letters and forward them to us. The letters were given to us in Microsoft Word XML format.
 
-We realized that several duplicate letters are present in this dataset, however. So to identify all of them we make use of two semi-automatic procedures for identifying duplicates. First we used a longest common subsequence string matching method. Second we represented the documents in the bag of words model, where distances between documents can be computed, and find duplicates by their proximity.
+We realized that several duplicate letters are present in this dataset, however. So to identify all of them we make use of two semi-automatic procedures for identifying duplicates. First we use a longest common subsequence string matching method. Second we represent the documents in the bag of words model, where distances between documents can be computed, and find duplicates by their proximity.
 
 
 \section{The Bag of Words Model}
@@ -120,11 +120,13 @@ it has many desirable properties such as the fixed length representation and str
 
 \section{Dataset cleansing}
 
-As mentioned above it was apparent that we faced a duplication problem in our dataset. In fact we had to deal with two different kinds of duplicates. First several letters were contained more than once. Second for several patients follow-up letters were included in our dataset. To ensure undistorted test results we set out to identify all these duplicates. It is clear that finding all of these duplicates manually is not only error-prone, but also very time consuming as every letter has in principle to be compared with every other letter and personal information like names had been removed during anonymization. We therefore explored semi-automatic aids for identifying duplicates. To verify their performance we had an expert identify all duplicates present in a subset of 150 of these letters manually.
+As mentioned above our initial dataset has a duplication problem. In fact two different kinds of duplicates are present in this dataset. First several letters are contained more than once. Second for several patients follow-up letters are included in the data. To ensure undistorted test results we have to identify as many of these duplicates as possible. It is clear that finding all of these duplicates manually is not only error-prone, but also very time consuming as in principle $\frac{(n-1)^2 + (n-1)}{2}$ letter comparison have to be made. With $n=307$ this amounts to almost 50,000 comparisons. Additionally personal information useful for this task like names has been removed during anonymization. We therefore explored semi-automatic aids for identifying duplicates. To verify their performance we had an expert identify all duplicates present in a subset of 150 of these letters manually.
 
-The first method we use is based on a longest common subsequence matching procedure. We scan two documents and find the longest sequence of characters they have in common. If the length of this sequence exceeds a threshold the pair is marked as possibly duplicate and manually inspected. We lower the threshold until the false positive rate becomes to high. Secondly we preprocessed all texts as described above and mapped them into the bag of words representation. We used the cosine distance to compute a measure of dissimilarity between pairs and marked all pairs with distance lower than a threshold as possibly duplicate and again iteratively increase the threshold.
+The first method we use is based on a longest common subsequence matching procedure. We scan two documents and find the longest sequence of characters they have in common. If the length of this sequence exceeds a threshold the pair is marked as possibly duplicate and manually inspected. We lower the threshold until the false positive rate becomes to high. Secondly we preprocess all texts as described above and map them into the bag of words representation. We use the cosine distance to compute a measure of dissimilarity between pairs and mark all pairs with distance lower than a threshold as possibly duplicate and again iteratively increase the threshold.
 
-The bag of words approach identified all manually detected duplicates and follow-ups while having a very low false positive rate. It found one additional manually undetected follow-up pair. The string matching procedure was not as useful due to a high false positive rate and did not detect all manually found duplicates. However, it marked a second manually undetected follow-up pair, that we did not identify with the bag of words procedure either. We used both approaches with thresholds from the "training" set on the remaining 157 letters as well. Overall we detected 18 exact copy pairs and 17 follow-up pairs. We additionally removed three letters from the dataset as they included almost no information (an artifact of the specific documentation procedure at the university hospital). So the final dataset consists of 269 unique physician letters (follow-ups are only included, where mentioned explicitly).
+The bag of words approach identifies all manually detected duplicates and follow-ups while having a very low false positive rate. It detects one additional manually undetected follow-up pair. The string matching procedure is not as useful due to a high false positive rate and does not detect all manually found duplicates. However, it finds a second manually undetected follow-up pair, that we have not identified with the bag of words procedure either. We use both approaches with thresholds from the "training" set on the remaining 157 letters as well. Overall we detect 18 exact copy pairs and 17 follow-up pairs. We additionally remove three letters from the dataset as they include almost no information (an artifact of the specific documentation procedure at the university hospital). This results in our final dataset consisting of 269 unique physician letters (follow-ups are only included, where mentioned explicitly).
+
+To be able to show or hide specific parts of the letters we try to break them apart into useful sections. (Irgendwie kein runder Übergang. Bin mir auch nicht ganz sicher, ob der nächste Teil noch in die Intro gehört. Macht aber schon Sinn, dann kann ich im nächsten Kapitel gleich mit einer Anwendung anfangen, für die ich alle anderen Methoden einführen muss.)
 
 
 %string matching:
@@ -211,16 +213,15 @@ it is possible to check the extraction process by hand. However, this
 is tedious work and is not scalable to bigger
 datasets. We therefore explore whether we can in principle make use
 of other automated methods to find paragraphs for which the extraction
-process does not produce desired results. We therefore take the extracted
+process does not produce desired results. We therefore take several correctly extracted and one incorrectly extracted
 diagnosis paragraphs and convert them to their bag of words representation.
 To get a feeling for how these vectors behave we use Principle Component
 Analysis (PCA) to get a lower dimensional approximation of the vectors. PCA finds the linear
-subspace with desired dimensionality of the original space that preserves as much of the variance of the vectors in the original space as possible. Thereby one can gain a low dimensional approximation of the high dimensional space and use this approximation for visual inspection.
+subspace with desired dimensionality of the original space that preserves as much of the variance of the vectors in the original space as possible. Thereby one can gain a low dimensional approximation of the high dimensional data and use this approximation for visual inspection.
 See figure \ref{fig:bow_find_odd} for a 2D PCA plot of the bag of words representation
-of one incorrectly extracted diagnose paragraph and some correctly
-extracted ones. As is apparent from the figure, it would not be a
+of the correctly and incorrectly extracted diagnose paragraph. As is apparent from the figure, it would not be a
 hard task to automatically detect the outlier. In this case the incorrectly
-extracted paragraph included not only the diagnosis, but also the
+extracted paragraph includes not only the diagnosis, but also the
 therapy history. In cases like this with additional text present, it is an easy task to
 identify the incorrect ones. A harder problem arises, when only parts
 of the paragraph of interest have been extracted. However, we believe
