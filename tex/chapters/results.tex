@@ -8,124 +8,52 @@ Vielleicht sollte das Kapitel eher challenges and solutions heißen. Es sind ja 
 
 \section{Duplicate Detection}
 
-Exploring our dataset we realized that we had to deal with two duplication
-problems. The first being that several letters were contained more
-than once in our dataset. The second, more challenging problem was
-that for several patients letters of different time points with somewhat
-different content were present. To ensure we would not distort
-our results, because of duplicates present in our test set, we tried
-to identify all duplicates of the two kinds. On first glance at least
-the first problem seems easy. Finding exact duplicates is not a challenging
-task. However, as the letters were made anonymous separately, they
-are not exact copies of each other. Names and other personal information
-were eradicated from the word documents by hand, so extra whitespaces
-and similar subtle differences were introduced. For a subset of 150
-of the letters we manually searched for the duplicates. However, this
-work is tedious, error-prone and does not scale to bigger datasets.
-To semi-automatically find the true duplicates and the follow-up letters
-we used two approaches.
-
-The first method searches two letters for their longest common subsequence
-of characters. If this longest common subsequence exceeds a threshold
-relative to the longer document (e.g. 3 \% of the length of the longer
-document), then the two letters are marked as possibly related. In
-the second approach we use the bag of words representations of the
-documents and their cosine distance in the vector space as an indicator.
-If the distance between two vectors is lower than a threshold (e.g.
-0.2), they are also marked as possibly related.
-
-We start in both methods with high thresholds, manually check the results
-and successively lower them until the false positive rate becomes
-too high. With this procedure we were able to quickly find all the
-duplicate pairs we already found manually before. Additionally we
-found two follow-up pairs among the 150 that we did not identify with
-the manual procedure. The bag of words approach is somewhat more reliable
-and identified almost all the duplicates, before including false positives.
-However, we did not find two other duplicates pairs, that
-the string matching procedure quickly identified. So it seems worth
-the effort to use both methods.
-
-Later we found one more follow-up pair by chance. However, these two
-letters are radically different in content and so this event does
-not undermine our confidence, that we were able to find a sufficient
-portion of the duplicate pairs to not distort our test results. (Will ich diesen letzten Absatz überhaupt drin haben?)
+%Exploring our dataset we realized that we had to deal with two duplication
+%problems. The first being that several letters were contained more
+%than once in our dataset. The second, more challenging problem was
+%that for several patients letters of different time points with somewhat
+%different content were present. To ensure we would not distort
+%our results, because of duplicates present in our test set, we tried
+%to identify all duplicates of the two kinds. On first glance at least
+%the first problem seems easy. Finding exact duplicates is not a challenging
+%task. However, as the letters were made anonymous separately, they
+%are not exact copies of each other. Names and other personal information
+%were eradicated from the word documents by hand, so extra whitespaces
+%and similar subtle differences were introduced. For a subset of 150
+%of the letters we manually searched for the duplicates. However, this
+%work is tedious, error-prone and does not scale to bigger datasets.
+%To semi-automatically find the true duplicates and the follow-up letters
+%we used two approaches.
+%
+%The first method searches two letters for their longest common subsequence
+%of characters. If this longest common subsequence exceeds a threshold
+%relative to the longer document (e.g. 3 \% of the length of the longer
+%document), then the two letters are marked as possibly related. In
+%the second approach we use the bag of words representations of the
+%documents and their cosine distance in the vector space as an indicator.
+%If the distance between two vectors is lower than a threshold (e.g.
+%0.2), they are also marked as possibly related.
+%
+%We start in both methods with high thresholds, manually check the results
+%and successively lower them until the false positive rate becomes
+%too high. With this procedure we were able to quickly find all the
+%duplicate pairs we already found manually before. Additionally we
+%found two follow-up pairs among the 150 that we did not identify with
+%the manual procedure. The bag of words approach is somewhat more reliable
+%and identified almost all the duplicates, before including false positives.
+%However, we did not find two other duplicates pairs, that
+%the string matching procedure quickly identified. So it seems worth
+%the effort to use both methods.
+%
+%Later we found one more follow-up pair by chance. However, these two
+%letters are radically different in content and so this event does
+%not undermine our confidence, that we were able to find a sufficient
+%portion of the duplicate pairs to not distort our test results. (Will ich diesen letzten Absatz überhaupt drin haben?)
 
 
 \section{Paragraph Extraction}
 
-As already mentioned above, the letters almost always contain separate
-paragraphs like greeting, diagnosis, therapy history and anamnesis.
-To be able to hide unnecessary information or to only present requested
-information it would be useful to automatically extract individual
-paragraphs from the documents. As the documents are similar in structure
-and the word XML format allows to automatically examine the XML tree
-structure of a document easily, we use a rule based approach for extracting
-the individual paragraphs. A simplified rule to find the beginning of the diagnosis paragraph is shown in pseudocode:
-\bigskip
 
-\begin{algorithm}[H]
-	\DontPrintSemicolon
-	diagnosisRegex = '[dD]iagnose(n)?'\;
-	text = thisXmlNode.text()\;
-	\If{regex.match(text, diagnosisRegex)
-		$ {\bf and} $ boldface(text)
-		$ {\bf and} $ precededByNewline(thisXmlNode)}{
-		diagnosisStart = thisXmlNode\;
-	}
-
-\caption{Simplified pseudocode algorithm to find the beginning of the diagnosis paragraph}
-\end{algorithm}
-
-\bigskip
-\bigskip
-
-\begin{lstlisting}
-diagnosis_regex = '[dD]iagnose(n)?'
-text = this_xml_node.text()
-if diagnosis_regex.match(text)
-		and boldface(text)
-		and preceded_by_newline(this_xml_node):
-then:
-	diagnosis_start = this_xml_node
-\end{lstlisting}
-
-\bigskip
-(Weder der erste noch der zweite pseudocode gefällt mir bis jetzt. Wird noch geändert.)
-
-
-With a set of rules like the one above we automatically extract the
-paragraphs of interest from the documents. This approach, however,
-is not very reliable, as the doctors are free to write the documents
-in the way they please. Indeed we find several wrongly extracted paragraphs,
-that e.g. include the subsequent paragraph as well. For our dataset
-it is possible to check the extraction process by hand. However, this
-is tedious and error-prone work and is not doable for bigger
-datasets. We therefore explore whether we can in principle make use
-of other automated methods to find paragraphs for which the extraction
-process does not produce desired results. We therefore take the extracted
-diagnosis paragraphs and convert them to their bag of words representation.
-To get a feeling for how these vectors behave we use Principle Component
-Analysis to get a lower dimensional approximation, that is a linear
-subspace of the original space and keeps as much variance as possible.
-See figure \ref{fig:bow_find_odd} for a 2D PCA plot of the bag of words representation
-of one incorrectly extracted diagnose paragraph and some correctly
-extracted ones. As is apparent from the figure, it would not be a
-hard task to automatically detect the outlier. In this case the incorrectly
-extracted paragraph included not only the diagnosis, but also the
-therapy history. In cases like this with additional text present, it is an easy task to
-identify the incorrect ones. A harder problem arises, when only parts
-of the paragraph of interest have been extracted. However, we believe
-that this problem is of little concern. The way our rules are built it
-is very unlikely that we will face this problem. The paragraph would
-have to include an empty line, the subsequent one would have to contain
-only boldface characters and a few more conditions would have to be
-fulfilled for this problem to arise. Indeed, we did not find a case
-of this problem in our dataset. (Ich könnte auch mal tatsächliche outlier detection machen, wenn du das für sinnvoll hälst. Hab ein paar Ideen, die gut funktionieren könnten, wollte aber keine Zeit rein stecken, falls wir es nicht benutzen wollen.)
-\begin{figure}
-	\includegraphics[width=\linewidth]{figures/bow_find_odd}
-	\caption{2D PCA projection of bag of words representation of one incorrectly extracted diagnosis paragraph and several correctly extracted ones.}
-	\label{fig:bow_find_odd}
-\end{figure}
 
 \section{Paragraph Classification}
 In our sample dataset, we can automate paragraph extraction as shown above. We can also semi-automatically detect for which paragraphs the procedure produces incorrect results. This approach works well only because the documents in our dataset generally adhere to a rough structure. For datasets from other clinics constructing a rule based extraction procedure is not only time consuming, it might not be possible at all. We therefore test an approach to classification of extracted paragraphs into the respective categories - greeting, diagnosis and anamnesis. Our findings show that surprisingly this is not a hard problem. On unseen datasets it might therefore be possible to split text into unlabeled paragraphs with a basic rule based approach. One can possibly define a new paragraph to begin after a blank line and automatically label the resulting paragraphs with a predefined category. This way one would be able to hide or show specific information on demand even on datasets from other clinics.
