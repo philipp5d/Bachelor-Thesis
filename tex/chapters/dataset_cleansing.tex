@@ -41,7 +41,7 @@ Additionally for the bag of words model we are not interested in the exact gramm
 
 \subsection*{Bag of Words Example}
 Assume the corpus
-consists of two documents $d_{1}=$``The patients with disease A.'' and $d_{2}=$``The patients with disease B.''. After tokenization, removal of stop words and stemming the vectors representing the two texts are:
+consists of two documents $d_{1}=$ ``The patients with disease A.'' and $d_{2}=$ ``The patients with disease B.''. After tokenization, removal of stop words and stemming the vectors representing the two texts are:
 
 \[
 \textbf{v}_{d_1}=\begin{array}{c}
@@ -65,10 +65,10 @@ consists of two documents $d_{1}=$``The patients with disease A.'' and $d_{2}=$`
 Note how the punctuation character does not appear, as the tokenization has removed it from the list of words. The words ``the'' and ``with'' have been removed as stop words and the word ``patients'' has been stemmed to produce ``patient''. Then the list of words has been converted to a bag of words vector.
 
 \subsection*{Application and shortcomings}
-The vectors $\textbf{v}_{d_1}$ and $\textbf{v}_{d_2}$ live in a four dimensional vector space and we can either use them as feature vectors for a machine learning task or compute the distance between them to get a measure of dissimilarity. The standard distance measure used for bag of words vectors is the cosine distance $d_{\cos}(\textbf{v}_1, \textbf{v}_2)=\frac{\textbf{v}_1\cdot \textbf{v}_2}{||\textbf{v}_1||\cdot ||\textbf{v}_2||}$, where $\textbf{v}_1\cdot \textbf{v}_2$ is the scalar product of $\textbf{v}_1$ and $\textbf{v}_2$. This distance measure is preferred over the standard euclidean distance $d_{\rm{euclid}}(\textbf{v}_1, \textbf{v}_2)=\sqrt{\textbf{v}_1\cdot \textbf{v}_2}$, as it normalizes the scalar product, by the product of the lengths of the vectors. Thereby only the relative word frequencies are important and not the absolute ones. I.e. pairs of longer documents do not have a bigger distance, just because the absolute word counts are higher. 
+The vectors $\textbf{v}_{d_1}$ and $\textbf{v}_{d_2}$ live in a four dimensional vector space and we can either use them as feature vectors for a machine learning task or compute the distance between them to get a measure of dissimilarity. The standard distance measure used for bag of words vectors is the cosine distance $d_{\cos}(\textbf{v}_1, \textbf{v}_2)=\frac{\textbf{v}_1\cdot \textbf{v}_2}{||\textbf{v}_1||\cdot ||\textbf{v}_2||}$, (!correct! sollte ich hier auch $\textbf{v}_{d_1}$ shcreiben oder ist $\textbf{v}_1$ ok?) where $\textbf{v}_1\cdot \textbf{v}_2$ is the scalar product of $\textbf{v}_1$ and $\textbf{v}_2$. This distance measure is preferred over the standard euclidean distance $d_{\rm{euclid}}(\textbf{v}_1, \textbf{v}_2)=\sqrt{\textbf{v}_1\cdot \textbf{v}_2}$, as it normalizes the scalar product, by the product of the lengths of the vectors. Thereby only the relative word frequencies are important and not the absolute ones. I.e. pairs of longer documents do not have a bigger distance, just because the absolute word counts are higher. To get a similarity measure instead of a dissimilarity measure we use the cosine similarity $\rm{sim}_{\cos}(\textbf{v}_1, \textbf{v}_2) = 1 - \mathit{d}_{\cos}(\textbf{v}_1, \textbf{v}_2)$.
 
 Generally the bag of words model has severe limitations. Consider for example
-the two sentences $d_{3}=$``The patients with disease A, but not B'' and $d_{4}$=``The patients with disease B, but not A''. Their representation in the bag of words model is equivalent,
+the two sentences $d_{3}=$ ``The patients with disease A, but not B'' and $d_{4}=$ ``The patients with disease B, but not A''. Their representation in the bag of words model is equivalent,
 although they express quite different meanings. Still the bag of words
 model is a standard approach for information retrieval problems, as
 it has many desirable properties such as the fixed length representation and straight forward embedding of texts.
