@@ -20,33 +20,33 @@ Many physician letters are rather long documents, spanning several pages. To inc
 %paragraphs from the documents. 
 The XML data format of the letters allows to automatize inspection of rather fine-grained structures present in the letters. One can automatically determine boldfaced characters for example. Because of this and because the documents are similar in structure, we use a rule based approach for extracting
 the individual paragraphs. A simplified rule to find the beginning of the diagnosis paragraph is shown in pseudocode:
-%\bigskip
-%
-%\begin{algorithm}[H]
-%	\DontPrintSemicolon
-%	diagnosisRegex = '[dD]iagnose(n)?'\;
-%	text = thisXmlNode.text()\;
-%	\If{regex.match(text, diagnosisRegex)
-%		$ {\bf and} $ boldface(text)
-%		$ {\bf and} $ precededByNewline(thisXmlNode)}{
-%		diagnosisStart = thisXmlNode\;
-%		}
-%		
+\bigskip
+
+\begin{algorithm}[H]
+	\DontPrintSemicolon
+	diagnosisRegex = '[dD]iagnose(n)?'\;
+	text = thisXmlNode.text()\;
+	\If{regex.match(text, diagnosisRegex)
+		$ {\bf and} $ boldface(text)
+		$ {\bf and} $ precededByNewline(thisXmlNode)}{
+		diagnosisStart = thisXmlNode\;
+		}
+		
 %		\caption{Simplified pseudocode algorithm to find the beginning of the diagnosis paragraph}
-%\end{algorithm}
+\end{algorithm}
 %		
 %\bigskip
 \bigskip
 
-\begin{lstlisting}
-diagnosis_regex = '[dD]iagnose(n)?'
-text = this_xml_node.text()
-if diagnosis_regex.match(text)
-	and boldface(text)
-	and preceded_by_newline(this_xml_node):
-then:
-	diagnosis_start = this_xml_node
-\end{lstlisting}
+%\begin{lstlisting}
+%diagnosis_regex = '[dD]iagnose(n)?'
+%text = this_xml_node.text()
+%if diagnosis_regex.match(text)
+%	and boldface(text)
+%	and preceded_by_newline(this_xml_node):
+%then:
+%	diagnosis_start = this_xml_node
+%\end{lstlisting}
 
 \bigskip
 %(Weder der erste noch der zweite pseudocode gefällt mir bis jetzt. Wird noch geändert.)
@@ -55,8 +55,8 @@ then:
 	\caption{2D PCA projection of bag of words representation of one incorrectly extracted diagnosis paragraph and several correctly extracted ones.}
 	\label{fig:bow_find_odd}
 \end{figure}
-A regular expression is defined that matches the beginning of the diagnosis paragraph (the German word for diagnosis is "Diagnose").
-The text of every node in the XML tree is checked for a regular expression match and several other rules. If an XML node matches all criteria it is marked as the beginning of the diagnosis paragraph.
+A regular expression is defined that matches the word diagnosis (the German word for diagnosis is "Diagnose").
+The text of every node in the XML tree is checked for a regular expression match and whether it is boldfaced. If an XML node matches those criteria and is preceded by a newline, it is marked as the beginning of the diagnosis paragraph.
 With a set of rules like the one above we automatically extract the
 paragraphs of interest from the documents. This approach, however,
 is not completely reliable, as the doctors are free to write the documents
@@ -65,7 +65,7 @@ that e.g. include the subsequent paragraph as well. For our dataset
 it is possible to check the extraction process by hand. However, this
 is tedious work and is not scalable to bigger
 datasets. We therefore explore whether we can in principle make use
-of other automated methods to find paragraphs for which the extraction
+of other automated methods to find paragraphs for which the rule based extraction
 process does not produce desired results. We therefore take several correctly extracted and one incorrectly extracted
 diagnosis paragraphs and convert them to their bag of words representation.
 To get a feeling for how these vectors behave we use Principle Component
@@ -85,16 +85,16 @@ that this problem is of little concern, due to the way our rules are made.
 %only boldface characters and a few more conditions would have to be
 %fulfilled for this problem to arise.
 Indeed, we did not find a case
-of this problem in our dataset. (!correct! Ich könnte auch mal tatsächliche outlier detection machen, wenn du das für sinnvoll hälst. Hab ein paar Ideen, die gut funktionieren könnten, wollte aber keine Zeit rein stecken, falls wir es nicht benutzen wollen.)
+%of this problem in our dataset. (!correct! Ich könnte auch mal tatsächliche outlier detection machen, wenn du das für sinnvoll hälst. Hab ein paar Ideen, die gut funktionieren könnten, wollte aber keine Zeit rein stecken, falls wir es nicht benutzen wollen.)
 
 
 
 
 
 \section{Paragraph Classification}
-In our sample dataset, we can automate paragraph extraction as shown above. We can also detect for which paragraphs the procedure produces incorrect results. This approach works well only because the documents in our dataset generally adhere to a rough structure. For datasets from other clinics constructing a rule based extraction procedure is not only time consuming, it might not be possible at all. We therefore test an approach to classification of extracted paragraphs into three categories---greeting, diagnosis and anamnesis. Our findings show that surprisingly this is not a hard problem. On unseen datasets it might therefore be possible to split text into unlabeled paragraphs with a basic rule based approach. One can possibly define a new paragraph to begin after a blank line and automatically label the resulting paragraphs with a predefined category. This way one would be able to hide or show specific information on demand even on datasets from other clinics.
+In our sample dataset, we can automate paragraph extraction as shown above. We can also detect for which paragraphs the procedure produces incorrect results. This approach works well only because the documents in our dataset generally adhere to a rough structure. For datasets from other clinics constructing a rule based extraction procedure is not only time consuming, it might not be possible at all. We therefore test an approach of classifying the extracted paragraphs into three categories---greeting, diagnosis and anamnesis. Our findings show that, surprisingly, this is not a hard problem. On unseen datasets it might therefore be possible to split text into unlabeled paragraphs with a basic rule based approach. One can possibly define a new paragraph to begin after a blank line and automatically label the resulting paragraphs with a predefined category. This way one would be able to hide or show specific information on demand even on datasets from other clinics.
 
-We approach the problem again from a vector space based view-point. We compute the vector representation for every paragraph and use a classifier trained on these representations to predict the correct paragraph label. To get the best results we compare different text embedding methods. We test the standard bag of words, term frequency---inverse document frequency (tf-idf) and paragraph vector models. We also use Latent Semantic Analysis (LSA) and Latent Dirichlet Allocation (LDA) to get more condensed feature vector representations based on the tf-idf vector space. Before presentation of the results of the different approaches we subsequently introduce these embedding methods.
+We approach the problem again from a vector space based view-point. We compute the vector representation for every paragraph and use a classifier trained on these representations to predict the correct paragraph label. To get the best results we compare different text embedding methods. We test the standard bag of words, term frequency---inverse document frequency (tf-idf) and paragraph vector models. We also use Latent Semantic Analysis (LSA) and Latent Dirichlet Allocation (LDA) to get more condensed feature vector representations based on the tf-idf vector space. Before presenting the results of the different approaches we subsequently introduce these embedding methods.
 
 \section*{Additional vector space models:}
 
@@ -134,7 +134,7 @@ common words and more expressive for rare words \citep{Manning2008vect}.
 
 \subsubsection*{Latent Semantic Analysis}
 
-An often occurring machine learning problem is that very high dimensional
+An often occurring machine learning (ML) problem is that very high dimensional
 feature vectors, as occurring in bag of words and tf-idf models,
 tend to generalize poorly in subsequent tasks like classification.
 In those cases it is desirable to have a more condensed lower dimensional
@@ -237,8 +237,8 @@ of surrounding words in a left and right context window of maximal
 size $w$. The current window size $c$ is sampled uniformly from
 range$(1,w)$ at every iteration. This results in $2c$ predictions
 for every center word considered. The model parameters are updated
-with gradient descent. After training either only the input word vectors
-are used or the input and output word vectors are either averaged
+with gradient descent. After training, either only the input word vectors
+or the input and output word vectors are used. In the latter case they are either averaged
 or concatenated to produce the final word vectors used for subsequent
 tasks. 
 
@@ -270,7 +270,7 @@ the Distributed bag of words model, an extension of skip-gram, the
 paragraph embedding is used to predict words randomly sampled from
 the paragraph.
 
-After the initial training phase a second step, called inference phase, is necessary to gain paragraph embeddings. A paragraph vector is initialized randomly, the rest of the model is kept fixed and the normal training procedure of word prediction and gradient descent on the paragraph vector is done. Thereby the final document embeddings are produced, that can be used like the embeddings of the methods described above. Note, however, that the time until the model reaches convergence both in the training and in the inference phase is unknown and a number of running epochs for both phases must be specified beforehand \citep{Le2014}.
+After the initial training phase a second step, called inference phase, is necessary to gain paragraph embeddings. A paragraph vector is initialized randomly, the rest of the model is kept fixed and the normal training procedure of word prediction and gradient descent on the paragraph vector is done. Thereby the final document embeddings are produced, which can be used like the embeddings of the methods described above. Note, however, that the time until the model reaches convergence both in the training and in the inference phase is unknown and a number of running epochs for both phases must be specified beforehand \citep{Le2014}.
 
 
 
@@ -278,7 +278,7 @@ After the initial training phase a second step, called inference phase, is neces
 
 \section*{Classification Results}
 
-After having introduced the additional embedding methods tf-idf, LSA, LDA and paragraph vector, we now use their embeddings for classification of the paragraphs into respective categories. Therefore we take all the extracted greeting, diagnosis and anamnesis paragraphs and map them to one of the embedding representations. Then logistic regression is trained on a training portion of the dataset and the performance evaluated on a testing portion. We use leave-one-out cross-validation to obtain a good estimate of the performance even on our limited dataset.
+After having introduced the additional embedding methods tf-idf, LSA, LDA and paragraph vector, we now use their embeddings for classification of the paragraphs into respective categories. Therefore we take all the extracted greeting, diagnosis and anamnesis paragraphs and map them to one of the embedding representations. Then logistic regression is trained on a training portion of the dataset and the performance evaluated on a testing portion. As our dataset is relatively small we use leave-one-out cross-validation to be able to use every data point as test data. Thereby we obtain as much information about the performance as is possible with such limited data.
 
 As vector embedding methods we test all methods described above. For LSA and LDA we tune the hyperparameter of dimensionality $k$ to obtain best results. The paragraph vector method has several rather unintuitive hyperparameters, that need tuning. We start with hyperparameters reported as working well in the literature \citep{Lau2016}. From there we use a randomized search strategy to find better fitting parameters for our specific problem. Results of our evaluation can be found in table \ref{table:para_class_acc}. Several things are noteworthy about the results. First it is surprisingly easy in general to use a small number of training paragraphs (less than 300 per category) to predict its label with very high accuracy. Second all methods are indeed outperformed by the more recent paragraph vector approach. However, the paragraph vector performance comes with the cost of needing to tune many hyperparameters, whose influence is not intuitively clear. Third LSA performance is always smaller or equal to tf-idf performance. As the tf-idf vector space has several thousand dimensions, but we only have several hundred texts, all these texts must fall into a linear subspace with dimension no greater than the number of texts. We assume the dimension is even substantially smaller, as LSA vectors produce the same results in classification accuracy when reducing the number of dimensions even much further.
 \begin{table}[h]
@@ -294,7 +294,7 @@ As vector embedding methods we test all methods described above. For LSA and LDA
 	\label{table:para_class_acc}
 \end{table}
 
-To gain a more intuitive understanding of the performance of these approaches we use PCA to get a 2D approximation of the vectors of the extracted paragraphs. In figure \ref{fig:pv_tf_pca} one can compare the 2D PCA projections of the tf-idf and the paragraph vector models. While it is obvious that both methods can produce good results even just using a linear classifier, it is also easy to see that the paragraph vectors are easier separable (although not linearly separable in the 2D projection). We conclude that paragraph vector is the best suited method for this classification task and surprisingly performs well even with very limited training data.
+To gain a more intuitive understanding of the performance of these approaches we use PCA to get a 2D approximation of the vectors of the extracted paragraphs. In figure \ref{fig:pv_tf_pca} one can compare the 2D PCA projections of the tf-idf and the paragraph vector models. While it is obvious that both methods can produce good results even just using a linear classifier, it is also easy to see that the paragraph vectors are easier separable (although not linearly separable in the 2D projection). We conclude that paragraph vector is the best suited method for this classification task. Additionally we note that it works surprisingly well with very limited training data.
 
 
 \begin{figure}

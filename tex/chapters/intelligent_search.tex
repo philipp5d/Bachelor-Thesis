@@ -1,0 +1,18 @@
+% !TEX root = ../Thesis.tex
+\begin{document}
+\documentclass[Thesis.tex]{subfiles}
+\chapter{Intelligent Search}
+\label{ch:intelligent_search}
+
+With the set of methods used throughout this work, we can address a related, but distinct problem. Say for research purposes it is necessary to find as many documents of patients with a certain feature as possible. Traditionally this can be done with the help of string matching algorithms, that search the database. Even in easy scenarios, however, these algorithms might fail to retrieve all relevant documents. As mentioned earlier diseases are spelled differently in different documents. Additionally one might be interested in all patients with a specific disease of themselves, but a string matching algorithm returns documents where this disease is mentioned in the family anamnesis, as well.
+
+The question arises whether we can do better, when using the embedding methods described earlier. We therefore take a subset of 135 physician letters and label them manually for five prevalent diseases---``Chronic lymphocytic leukemia'', ``multiple myeloma'', ``breast cancer'', ``follicular lymphoma'' and ``diffuse large B-cell lymphoma''. In the subset of 135 letters these diseases appear between 9 and 14 times. We start out with one letter from one of the groups, retrieve the best match according to our retrieval method, classify this retrieved letter as either relevant or non-relevant, update our retrieval method and present the next candidate. Thereby we ask with how many false positives we have to deal until we find a prespecified fraction of relevant letters.
+
+
+
+
+We specifically address the question with how many false positives we have to deal, when trying to retrieve different fractions of the relevant letters to one of the information needs given by the diseases. We always start with one disease letter, present the best match according to our retrieval method, classify the first retrieved letter as relevant or non-relevant, update our retrieval method and present the next candidate. 
+
+
+
+\end{document}
