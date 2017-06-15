@@ -7,7 +7,7 @@ other text mining applications for
 clinical data
 Philipp Hummel
 
-June 11, 2017
+June 15, 2017
 
 First supervisor:
 Second supervisor:
@@ -16,18 +16,30 @@ Dr. Frank Jäkel
 Prof. Dr. Gordon Pipa
 
 A textual recommender system and other text mining applications for clinical data
-In unusual clinical situations doctors would often like to review cases of similar patients to guide their decision making for the current one. To retrieve the relevant
-cases, however, is a hard and time consuming task. This thesis works on building a
+In unusual clinical situations, doctors would often like to review cases of similar
+patients to guide their decision making for the current one. Retrieving the relevant
+cases, however, is a hard and time-consuming task. This thesis works on building a
 recommender system that automatically finds physician letters similar to a specified
 reference letter in an information retrieval like manner. We use a small dataset of free
 text physician letters of oncology patients to do exploratory work on this issue. We
-provide a prototypical system that gives recommendations on this dataset and verify its performance through a psychological experiment assessing doctor’s similarity
+provide a prototypical system that gives recommendations on this dataset and verify its performance through a psychological experiment assessing doctors’ similarity
 judgments of those letters. We find that the similarity measure of our recommender
-system correlates strongly with doctor’s similarity judgments. Additionally we explore other text mining applications like automatic diagnosis extraction based on
+system correlates strongly with doctors’ similarity judgments. Additionally, we explore other text mining applications like automatic diagnosis extraction based on
 this dataset.
 
 Acknowledgements
-acknowledgements
+I would like to thank several people and acknowledge their contributions to this
+thesis. First and foremost I want to thank Dr. Frank Jäkel for his guidance, his
+expertise in cognitive science, psychology and machine learning, and generally his
+well thought-out remarks. Thanks also to Dr. Sascha Lange and the company
+PSIORI for making this thesis possible by selecting me for this project, providing
+the objective for the thesis, and sharing their contacts and resources.
+Special thanks go to Prof. Dr. Roland Mertelsmann who envisioned this project
+for years, gave many fruitful comments, established the connection to the University
+hospital Freiburg and motivated several other physicians and students to contribute
+to this project among other things by participating in the experiment.
+Lastly I want to thank Astrid Feiten, Judith Schepers and Lisa Dieminger for
+their proof-reading, that went far beyond plain grammar correction.
 
 Contents
 1 Introduction
@@ -67,14 +79,24 @@ acknowledgements
 19
 
 5 Intelligent Search
+5.1 Research Use Case . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2 Search System . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.3 System Performance . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 27
+27
+27
+28
 
 6 Discussion
 
 31
 
 Appendices
+
+IX
+
+A Screenshots
 
 IX
 
@@ -99,13 +121,13 @@ et al., 2008; Sandu et al., 2016). Importantly case reports allow practitioners 
 in-depth understanding of specific disease courses and provide educational material
 for students (Nissen and Wynn, 2014). Although case reports lack the scientific
 validity of large empirical studies, it is apparent that people have strong intuitions
-for the usefulness of them. During our collaboration with practicing doctors we also
-found that practitioners use the clinical records of similar patients to guide problem
-solving for the current patient. Especially when faced with hard or unusual cases
-doctors seek similar patient information from the hospital database. While this only
-shows that doctors think that the presentation of similar cases helps them in their
-work, we will argue that this can indeed improve their medical problem solving.
-Cognitive Scientists have discussed the usefulness of examples for reasoning processes for long and found that at least in some experimental settings reasoning
+for the usefulness of them. During our collaboration with practicing doctors, we
+also found that practitioners use the clinical records of similar patients to guide
+problem-solving for the current patient. Especially when faced with hard or unusual
+cases doctors seek similar patient information from the hospital database. While
+this only shows that doctors think that reviewing similar cases helps them in their
+work, we will argue that this can indeed improve their medical problem-solving.
+Cognitive scientists have discussed the usefulness of examples for reasoning processes for a long time and found that at least in some experimental settings reasoning
 processes are based on earlier presented examples (Medin and Schaffer, 1978). More
 recently these reasoning processes have also been studied in more realistic scenarios.
 Klein (2008) reviews models for decision making under real world circumstances.
@@ -123,20 +145,19 @@ Chapter 1. Introduction
 
 ory, experts apply the solution from the remembered situation to the current one
 in a thought experiment. They evaluate whether or not this solution strategy will
-lead to success and adjust it, if necessary. In case no way to adequately adjust
-the solution can be found, another situation is retrieved from memory. This process is repeated until a sufficiently good solution is found. Presentation of similar
-cases should therefore aid doctor’s decision making in an actual clinical setting. The
+lead to success and adjust it, if necessary. In case no way to adequately adjust the
+solution can be found, another situation is retrieved from memory. This process is
+repeated until a sufficiently good solution is found. Presentation of similar cases
+should, therefore, aid doctors’ decision making in an actual clinical setting. The
 medical domain has also been directly addressed by research in cognitive science.
-Elstein and Schwarz (2002) have concluded that for medical problem solving reasoning processes can be divided into two distinct categories. For cases perceived as
-easy doctors apply a kind of pattern recognition based on the examples they have
-encountered before and use solutions stored in memory. For harder cases, however,
-doctors need to rely on a more elaborate reasoning process. They have to consciously
-generate and eliminate hypotheses to be able to solve the problem. It is plausible
-that hypothesis generation as well as hypothesis falsification is also guided by the
-doctor’s experience of earlier patients. From a more theoretical perspective Kolodner and Kolodner (1987) have specifically argued that “[i]ndividual experiences act
-as exemplars upon which to base later decisions” in medical problem solving. Their
+Elstein and Schwarz (2002) have concluded that for medical problem-solving reasoning processes can be divided into two distinct categories. For cases perceived as easy
+doctors apply a kind of pattern recognition based on the examples they have encountered before and use solutions stored in memory. For harder cases, however, doctors
+need to rely on a more elaborate reasoning process. They have to consciously generate and eliminate hypotheses to be able to solve the problem. It is plausible that
+hypothesis generation, as well as hypothesis falsification, is also guided by the doctor’s experience with earlier patients. From a more theoretical perspective, Kolodner
+and Kolodner (1987) have specifically argued that “[i]ndividual experiences act as
+exemplars upon which to base later decisions” in medical problem-solving. Their
 research was partially driven by the desire to understand the way in which clinicians
-perform problem solving but also by the goal of building artificial systems that can
+perform problem-solving but also by the goal of building artificial systems that can
 aid in this process. They argue that both humans and machines can learn from
 specific examples and use them to reason about new problems.
 Around the idea that artificial systems might learn from examples has evolved a
@@ -144,25 +165,24 @@ whole branch of Artificial Intelligence (AI), which is called “Case-based reas
 This domain has been greatly influenced by psychological findings, some of them
 mentioned above. Researchers have successfully built systems used in real world
 applications, that reason from the examples provided (Aamodt and Plaza, 1994).
-Within this domain of AI one of the greatest application areas is medicine. It seems
-that the medical area does not only offer straight forward usage of examples, but
-also has a need for automatic aids for problem solving (Begum et al., 2011).
+Within this domain of AI, one of the greatest application areas is medicine. It seems
+that the medical area does not only offer straightforward usage of examples, but also
+has a need for automatic aids for problem-solving (Begum et al., 2011).
 Given the practical, psychological and theoretical reflections above we believe
-that it would be helpful for practitioners to be able to review cases of similar patients.
-One particularly well suited source for the retrieval of patient cases are databases
-of physician letters, as these letters provide concise summaries of the specifics of
-a patient that matter in practice. Search in these databases is, to our knowledge,
-usually limited to character matching procedures and therefore provides limited
-practical value for doctors. We therefore set out to build a prototypical recommender
-system on those physician letters to do automatic retrieval of only the relevant
-documents from a database.
+that it would be helpful for practitioners to be able to review cases of similar patients. One particularly well-suited source for the retrieval of patient cases are
+databases of physician letters, as these letters provide concise summaries of the
+specifics of a patient that matter in practice. Search in these databases is, to our
+knowledge, usually limited to character matching procedures and therefore provides
+limited practical value for doctors. We, therefore, set out to build a prototypical
+recommender system on those physician letters to do automatic retrieval of only the
+relevant documents from a database.
 
 1.2
 
 Dataset
 
 To get a dataset for exploratory work on the recommender system we collaborated
-with the university hospital Freiburg. The heamatology and oncology department
+with the University Hospital Freiburg. The haematology and oncology department
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -173,17 +193,20 @@ for clinical data
 
 has a database of approximately 190,000 German physician letters in PDF form
 (Spadaro, 2012) (!correct! noch nicht zufrieden, wie das item in der bibliography
-erscheint. Ich weiß allerdings auch nicht wie es richtig wäre.). These physician letters are free text documents written by the doctors to keep record of the patient’s
-visit. They usually include information about the patient’s age, sex, diagnosed diseases, therapy history, current complaints, many more medical details like blood
-counts, but also personal information like names and birth dates. The letters generally follow a rough structure. Almost all of them include a letter head (a greeting
-and introduction), a diagnosis (summarizing diagnosed diseases bullet point like), a
-therapy history (listing the past therapies with dates) and an anamnesis (free text
-about current complaints etc.) section, separated into individual paragraphs. In
-principal though, doctors are free to document this information in the way they
-please. The database does not, however, contain the information of 190,000 unique
-patients. For many patients several letters are included, as a new visit will often
-result in an updated letter, that is added to the database. We refer to these letters
-as “follow-up” letters.
+erscheint. Ich weiß allerdings auch nicht wie es richtig wäre.). These physician letters
+are free text documents written by the doctors to keep record of the patient’s visit.
+They usually include information about the patient’s age, sex, diagnosed diseases,
+therapy history, current complaints, many more medical details like blood counts,
+but also personal information like names and birth dates. One of these letters is
+shown in the appendix in figures A.1 and A.2. The letters generally follow a rough
+structure. Almost all of them include a letterhead (a greeting and introduction),
+a diagnosis (summarizing diagnosed diseases bullet point like), a therapy history
+(listing the past therapies with dates) and an anamnesis (free text about current
+complaints etc.) section, separated into individual paragraphs. In principal though,
+doctors are free to document this information in the way they please. The database
+does not, however, contain the information of 190,000 unique patients. For many
+patients several letters are included, as a new visit will often result in an updated
+letter, that is added to the database. We refer to these letters as “follow-up” letters.
 To get permission to use a subset of those letters for our experiment, it was
 necessary to ensure that all personal information was removed from them. A medical
 student of the university hospital was therefore paid to manually anonymize 307 of
@@ -194,24 +217,24 @@ XML format.
 
 Use Case Scenario
 
-The recommender we envision is built into the clinical every day life of doctors.
-During the visit of a patient, physicians write a new or modify an existing letter for
-this patient. Already in this writing phase we wish to retrieve letters of similar patients and present them on demand. Thereby doctors decision making processes can
-be guided by these similar cases, if the doctor deems this necessary. The perceived
-fitness of the retrieved letters has to be exceptionally high. Doctor’s additional time
-resources are usually very limited. Therefore the recommender system will only be
-used in practice, if almost all recommendations are deemed useful.
-With the dataset mentioned above we set out to build this kind of recommender
+The recommender we envision is built into the clinical everyday life of doctors.
+During the visit of a patient, physicians write a new or modify an existing letter
+for this patient. Already in this writing phase, we wish to retrieve letters of similar
+patients and present them on demand. Thereby doctors’ decision-making processes
+can be guided by these similar cases if the doctor deems this necessary. The perceived
+suitability of the retrieved letters has to be exceptionally high. Doctors’ additional
+time resources are usually very limited. Therefore the recommender system will only
+be used in practice if almost all recommendations are considered useful.
+With the dataset mentioned above, we set out to build this kind of recommender
 system. To achieve this goal we first clear our dataset from duplicates with the help
-of basic information retrieval methods. This is described in the subsequent chapter.
-We elaborate on methods for hiding and showing specific information from the letters
-in chapter 3. For this goal we make extensive use of more sophisticated information
-retrieval methods and introduce them alongside there. Chapter 4 describes the
-recommender system itself, the experiment we conducted to assess its quality, and
-the evaluation of the obtained data. In chapter 5 we describe a related use-case
-in a research setting and shortly assess how useful the developed system can be in
-practice. Finally we review shortcomings, conceivable problems and possibilities for
-further work in the discussion.
+of basic information retrieval methods. This process is described in the subsequent
+chapter. We elaborate on methods for hiding and showing specific information from
+the letters in chapter 3. For this goal, we make extensive use of more sophisticated information retrieval methods and introduce them alongside there. Chapter
+4 describes the recommender system itself, the experiment we conducted to assess
+its quality, and the evaluation of the obtained data. In chapter 5 we describe a
+related use case in a research setting and shortly assess how useful the developed
+system can be in practice. Finally, we review shortcomings, conceivable problems,
+and possibilities for further work in the discussion.
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -239,13 +262,13 @@ means all word order information is disregarded and only the information how oft
 a word is present in a text is encoded (Manning et al., 2008b). (!correct! Mit der
 Art wie das Buch hier zitiert wird bin ich noch nicht glücklich. Es sollte eigentlich
 chapter 2 und 6 sein und nicht 2008 a und b. oder wenigstens a, b, c in derselben
-Reihenfolge wie die chpaters.) More concretely in the bag of words model documents
-are represented as fixed length feature vectors, where every feature is a word occurrence count. In the simplest approach every feature is the word or term frequency
-tf(t, d) of term t in document d. Where tf(t, d) is the occurrence count of word or
-term t in document d. To compute feature vectors for documents in a corpus the
-vocabulary V of the corpus needs to be established first. Documents are represented
-by a 1 × |V | vector of the values tf(t, d) for all t ∈ V . To represent text in the bag
-of words model, however, the text needs to be preprocessed first.
+Reihenfolge wie die chpaters.) More concretely, in the bag of words model documents are represented as fixed length feature vectors, in which every feature is a
+word occurrence count. In the simplest approach every feature is the word or term
+frequency tf(t, d) of term t in document d. Where tf(t, d) is the occurrence count
+of word or term t in document d. To compute feature vectors for documents in a
+corpus the vocabulary V of the corpus needs to be established first. Documents are
+represented by a 1 × |V | vector of the values tf(t, d) for all t ∈ V . To represent text
+in the bag of words model, however, the text needs to be preprocessed first.
 
 5
 
@@ -316,24 +339,28 @@ use them as feature vectors for a machine learning task or compute a measure of
 similarity between them. The standard similarity measure used for bag of words
 1 ,v2 i
 vectors is the cosine similarity scos (v1 , v2 ) = ||vhv1 ||·||v
-, (!correct! sollte ich hier
+, where hv1 , v2 i is the scalar
 2 ||
-auch vd1 shcreiben oder ist v1 ok?) where hv1 , v2 i is the scalar product of v1
-and v2 and ||v|| is the norm or length of vector v. The cosine similarity has the
-appealing property that it normalizes the scalar product by the norm of the vectors
-used. Thereby it ensures, that the resulting measure lies in the interval of [−1, 1].
-For positive spaces (i.e. spaces, where all vectors have only non-negative elements,
-like the bag of words vector space) this measure lies in the interval [0, 1]. Two
-documents d1 and d2 are then considered to be more similar than d3 and d4 , if
+product of v1 and v2 and ||v|| is the norm or length of vector v. The cosine similarity
+has the appealing property that it normalizes the scalar product by the norm of the
+vectors used. Thereby it ensures, that the resulting measure lies in the interval of
+[−1, 1]. For positive spaces (i.e. spaces, where all vectors have only non-negative
+elements, like the bag of words vector space) this measure lies in the interval [0, 1].
+Two documents d1 and d2 are then considered to be more similar than d3 and d4 , if
 scos (vd1 , vd2 ) > scos (vd3 , vd4 ).
 Generally, however, the bag of words model has severe limitations. Consider for
 example the two sentences d3 = “The patients with disease A, but not B” and d4 =
 “The patients with disease B, but not A”. Their representation in the bag of words
-model is equivalent, although they express quite different meanings. Still the bag
-of words model is a standard approach for information retrieval problems, as it has
-many desirable properties. Texts can be straight forwardly embedded in a vector
-space (i.e. represented as vectors) and these embeddings can be used as fixed length
-feature representations for machine learning tasks.
+model is equivalent, although they express quite different meanings. Additionally,
+some phrases that express similar or identical meaning are treated very differently in
+the bag of words model. Consider the example disease word “Chronic-lymphocyticleukemia”. Many doctors will abbreviate this word to “CLL” or “B-CLL”. The bag
+of words model regards these three forms of the same word as completely dissimilar.
+Even worse, when spelled “Chronic lymphocytic leukemia”, the phrase is regarded
+as three distinct words, having nothing in common with each other or the words
+above. Still the bag of words model is a standard approach for information retrieval
+problems, as it has many desirable properties. Texts can be straight forwardly
+embedded in a vector space (i.e. represented as vectors) and these embeddings can
+be used as fixed length feature representations for machine learning tasks.
 
 2.2
 
@@ -347,16 +374,11 @@ The longest common subsequence matching procedure scans two documents and
 finds the longest sequence of characters they have in common. If the length of this
 sequence exceeds a threshold the pair is marked as possibly duplicate and manually
 inspected. To get more hits we lower the threshold until the false positive rate
-becomes to high. Secondly we preprocess all texts as described above and map them
-into the bag of words representation. We use the cosine similarity as a measure of
-relatedness between pairs and mark all pairs with distance lower than a threshold
+becomes too high. Secondly we preprocess all texts as described above and map
+them into the bag of words representation. We use the cosine similarity as a measure
+of relatedness between pairs and mark all pairs with distance lower than a threshold
 as possibly duplicate and again iteratively decrease the threshold.
 The bag of words approach identifies all manually detected duplicates and followups while having a very low false positive rate. It detects one additional manually
-undetected follow-up pair. The string matching procedure is not as useful due to
-a high false positive rate and does not detect all manually found duplicates. Its
-performance is worse than the performance of the bag of words procedure, especially
-for follow-up letters. However, it finds a second manually undetected follow-up pair,
-that we have not identified with the bag of words procedure either. We use both
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -365,6 +387,11 @@ for clinical data
 
 Chapter 2. Dataset Cleansing
 
+undetected follow-up pair. The string matching procedure is not as useful due to
+a high false positive rate and does not detect all manually found duplicates. Its
+performance is worse than the performance of the bag of words procedure, especially
+for follow-up letters. However, it finds a second manually undetected follow-up pair,
+that we have not identified with the bag of words procedure either. We use both
 approaches with thresholds from the "training" set on the remaining 157 letters as
 well. Overall we detect 18 exact copy pairs and 17 follow-up pairs. We additionally
 remove three letters from the dataset as they include almost no information (an
@@ -827,19 +854,11 @@ Based on the continous measure we first do hyperparameter tuning for the embeddi
 method. Generally the performance is high above chance level. It is noteworthy
 that the simple and hyperparameterless tf-idf method outperforms all other methods including LDA and the recent and hard-to-tune paragraph vector. We therefore
 choose tf-idf as the embedding method for the recommender system.
-There are good reasons that tf-idf works so well for our problem. It is plausible
-that the main features for human similarity judgments of letter pairs are based
-on the diagnosis of the patients. The diagnosis and diseases words are features
-that the tf-idf method will judge as very important, as they appear only in few
-documents overall. An additional problem, however, is that of different spellings of
-the same disease. Consider for example the disease "chronic lymphocytic leukemia".
-Spellings range from "CLL" over "B-CLL" to "chronic-lymphocytic-leukemia". All
-these spellings are regarded by all our models as separate entities. However, the
-tf-idf vectors are still useful document embeddings, as the overall word statistics
-still differ depending on the diagnosis. Words describing medication for leukemia
-for example are still present in all letters of patients with CLL. These medication
-words, however, are again present only in few documents overall and are thereby
-considered more important features by the tf-idf method.
+There is a relatively intuitive reason why tf-idf works well for our problem. It
+is plausible that the main features for human similarity judgments of letter pairs
+are based on the diagnosis of the patients. The diagnosis and diseases words are
+features that the tf-idf method will judge as very important, as they appear only in
+few documents overall.
 
 4.2
 
@@ -848,6 +867,14 @@ Recommendation Quality—Experimental Setup
 Having fine-tuned the recommendation procedure as described above the next step
 consists of assessing the quality of the recommendation. We test this quality in a
 psychological experiment. To this end we probe the similarity ratings that subjects
+give to pairs of letters and compare them to the similarity measure of our algorithm.
+We construct an experiment with 32 trials, in which subjects have to compare
+letter pairs for similarity. More precisely that means we select 32 letters as “reference
+letters” out of our database and let subjects rate the similarity of these 32 reference
+letters to five other letters each. Thereby we gain ratings for 160 letter pairs. 16
+of the reference letters have a follow-up letter in our database. Trials with this
+kind of reference letter are called “follow-up trials” and letter pairs of follow-ups
+are called “follow-up pairs”. The other 16 reference letters are selected randomly
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -856,14 +883,6 @@ for clinical data
 
 19
 
-give to pairs of letters and compare them to the similarity measure of our algorithm.
-We construct an experiment with 32 “trials”, in which subjects have to compare
-letter pairs for similarity. More precisely that means we select 32 letters as “reference
-letters” out of our database and let subjects rate the similarity of these 32 reference
-letters to five other letters each. Thereby we gain ratings for 160 letter pairs. 16
-of the reference letters have a follow-up letter in our database. Trials with this
-kind of reference letter are called “follow-up trials” and letter pairs of follow-ups
-are called “follow-up pairs”. The other 16 reference letters are selected randomly
 among the letters without follow-ups present in our dataset. The five letters that
 are compared to one reference letter are called the comparison letters. Four of them
 are selected based on the cosine similarity between the reference letter and all other
@@ -876,7 +895,9 @@ comparison letter at a time. After rating their similarity they are presented wi
 next comparison letter. Once a trial is done, i.e. five comparison letters are rated,
 the next reference letter is presented. The order of the reference and comparison
 letters is random, but fixed. Subjects are forced to give a rating in the range of 1
-(very dissimilar) to 7 (very similar) for each letter pair.
+(very dissimilar) to 7 (very similar) for each letter pair. See figures A.3, A.4, and
+A.5 (in the Appendix) for screenshots of the website on which the subjects perform
+the experiment.
 We design the experiment such that the first trial is a follow-up trial and the
 second one is a non-follow-up trial. Thereby we ensure that subjects can adjust for
 the upper similarity bound of having to compare letters of the same patient. These
@@ -901,6 +922,12 @@ León-Villagrá and Jäkel, 2013). In line with these results we find that the i
 agreement is higher among the experts than among the students (expert agreement:
 0.76; student agreement: 0.59). We measure this agreement with the spearman rank
 correlation coefficient, that produces a number between -1 (perfect anti-correlation)
+and 1 (perfect correlation). Spearman’s coefficient is used instead of the often used
+cohen’s kappa coefficient, because the former can deal with ordinal data, whereas
+the latter can only deal with nominal data (Spearman, 1904; Cohen, 1960). Our
+number of subjects is quite low for concluding that students rate letter pairs worse
+than experts. Still as our findings are in line with well established research, we
+discard the student rating data for further analysis.
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -909,12 +936,6 @@ for clinical data
 
 Chapter 4. Recommender System
 
-and 1 (perfect correlation). Spearman’s coefficient is used instead of the often used
-cohen’s kappa coefficient, because the former can deal with ordinal data, whereas
-the latter can only deal with nominal data (Spearman, 1904; Cohen, 1960). Our
-number of subjects is quite low for concluding that students rate letter pairs worse
-than experts. Still as our findings are in line with well established research, we
-discard the student rating data for further analysis.
 Note that for the following analyses we exclude data of follow-up pairs, except
 where explicitly stated otherwise. Subjects rate the similarity of these pairs very
 highly and almost any information retrieval system will find them to be similar.
@@ -930,48 +951,15 @@ the random comparison letter for each trial. The best fitting comparison letter 
 the one with highest cosine similarity to the reference letter. Figure 4.1a shows a
 histogram of the differences in subject rating of the best fitting and the randomly
 selected letter pairs. The figure also shows the mean difference and a 95% interval
-for this mean. The confidence interval was calculated using the standard error of
-the mean (sem). The lower and upper bound is then calculated as bound1/2 =
-mean ± 1.96 ∗ sem respectively. This estimation of the confidence interval, however
-relies on the assumption that sample means are normally distributed. To verify this
-assumption we use bootstrapping (Efron, 1979).
-Bootstrapping is a procedure in which many random resamples of the dataset are
-computed. If our collected dataset represents the true distribution of differences in
-ratings of best fitting and random letter pairs well enough, then the resamples are to
-our sample as our sample is to the true distribution. Thereby the mean of the average
-difference of the resampled datasets give an estimate of the average differences, when
-collecting many samples from the real distribution. We take 100.000 resamples with
-replacement from our data and compute the average difference of the resamples for
-every one of them. The distribution of these average differences of the resamples
-can be seen in figure 4.1b. From this figure it is apparent, that the assumption
-of normality for the distribution of average differences indeed holds. The figure
-also shows bootstrap estimates for the mean and the 95% confidence interval. As
-expected these estimations match closely with the ones estimated with the standard
-error of the mean as can be seen from the following table.
-Estimated Statistic
-
-Mean
-
-Confidence Interval
-
-Standard Estimation
-
-1.93
-
-[1.17, 2.70]
-
-Bootstrap Estimation
-
-1.93
-
-[1.14, 2.68]
-
-A textual recommender system and other text mining applications
-for clinical data
-
-4.3. Recommendation Quality—Results
-
-21
+for this mean. The confidence interval was calculated using the standard error of the
+mean (sem). The lower and upper bound is then calculated as bound1/2 = mean ±
+1.96 ∗ sem respectively. This estimation of the confidence interval, however relies on
+the assumption that sample means are normally distributed. As those means are
+calculated over 30 values in each sample, this assumption is hardly quesitionable
+in most scenarios due to the central limit theorem. As the differences in subject
+ratings are discrete values bounded between -6 and +6 we might face the issue of
+a skewed distribution because of bounding problems, though. Therefore we verify
+the assumption of normality with bootstrapping (Efron, 1979). (!correct! der Table
 
 a)
 Mean
@@ -1024,43 +1012,76 @@ Figure 4.1: (a): Histogram of differences in rating of the "best" and the random
 letter for each trial. (b): Histogram of the average differences in averaged subject ratings
 of the two groups for 100.000 bootstrap resampled datasets.
 
+A textual recommender system and other text mining applications
+for clinical data
+
+4.3. Recommendation Quality—Results
+
+21
+
+sollte wirklich noch auf der Seite vorher kommen, vor der Figure.)
+Bootstrapping is a procedure in which many random resamples of the dataset are
+computed. If our collected dataset represents the true distribution of differences in
+ratings of best fitting and random letter pairs well enough, then the resamples are to
+our sample as our sample is to the true distribution. Thereby the mean of the average
+difference of the resampled datasets give an estimate of the average differences, when
+collecting many samples from the real distribution. We take 100.000 resamples with
+replacement from our data and compute the average difference of the resamples for
+every one of them. The distribution of these average differences of the resamples
+can be seen in figure 4.1b. From this figure it is apparent, that the assumption
+of normality for the distribution of average differences indeed holds. The figure
+also shows bootstrap estimates for the mean and the 95% confidence interval. As
+expected these estimations match closely with the ones estimated with the standard
+error of the mean as can be seen from the following table.
+Estimated Statistic
+
+Mean
+
+Confidence Interval
+
+Standard Estimation
+
+1.93
+
+[1.17, 2.70]
+
+Bootstrap Estimation
+
+1.93
+
+[1.14, 2.68]
+
 Cosine Similarity and Subject Ratings
 
 average cosine similarity
 
-After analyzing whether ranking letter pairs with our algorithm works better than
-chance, we analyze the relationship of the cosine similarity and the average subject
-ratings of letter pairs more directly. We visualize the mean cosine similarity, that
-our algorithm assigns to pairs, as a function of the subject rating in figure 4.2.
-The data shows a positive, close to
-linear correlation (pearson correlation:
-0.96) of those two variables, suggesting
-that our recommendation method cap0.2
-tures at least some aspects of perceived
-similarity.
-Next we analyze the relationship of
+After analyzing whether ranking letter
+pairs with our algorithm works better
+than chance, we analyze the relationship of the cosine similarity and the av0.2
+erage subject ratings of letter pairs more
+directly. We visualize the mean cosine
+similarity, that our algorithm assigns to
 0.1
-the cosine similarity and the subject
-ratings more thoroughly. We therefore
-1
+pairs, as a function of the subject rating
+in figure 4.2. The data shows a pos1
 2
 3
 4
 5
 6
 7
-draw all letter pairs as points in a plot
-subject rating
-of average rating of a pair versus cosine
-similarity of a pair. See figure 4.3 for
-this visualization. We mark follow-up Figure 4.2: Averaged cosine similarity of all
-pairs green and the random comparison letter pairs that were rated into one of the
+itive, close to linear correlation (pearsubject rating
+son correlation: 0.96) of those two variables, suggesting that our recommendation method captures at least some as- Figure 4.2: Averaged cosine similarity of all
+letter pairs that were rated into one of the
+pects of perceived similarity.
 seven possible rating categories.
-letter pairs red. From the figure it is
-apparent that follow-up letters can be
-easily distinguished with the cosine similarity from other letter pairs. The randomly
-selected pairs mostly have a low cosine similarity as expected, however several of
-them are still rated rather highly by subjects. Some well fitting random letter pairs
+Next we analyze the relationship of
+the cosine similarity and the subject ratings more thoroughly. We therefore draw all letter pairs as points in a plot of average
+rating of a pair versus cosine similarity of a pair. See figure 4.3 for this visualization.
+We mark follow-up pairs green and the random comparison letter pairs red. From
+the figure it is apparent that follow-up letters can be easily distinguished with the
+cosine similarity from other letter pairs. The randomly selected pairs mostly have
+a low cosine similarity as expected, however several of them are still rated rather
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1096,8 +1117,8 @@ cosine similarity
 Figure 4.3: Average subject rating versus cosine similarity of all letter pairs. Follow-up
 pairs are marked green, random ones red.
 
-are expected by chance and after manual inspection of these pairs we settle on this
-conclusion.
+highly by subjects. Some well fitting random letter pairs are expected by chance
+and after manual inspection of these pairs we settle on this conclusion.
 
 Considerations of Precision and Recall
 A standard way to assess the quality of an information retrieval system uses two
@@ -1165,7 +1186,7 @@ per reference letter at the threshold instead of the threshold itself.
 Note that both plots start at the same point, where all letters with rank four or lower are
 retrieved, and share a common y-axis.
 
-recommender system in the use-case we envision. It is very important for a setting in
+recommender system in the use case we envision. It is very important for a setting in
 clinical everyday life, that a large fraction of recommended letters is deemed useful
 by doctors. If this were not the case, physicians would quickly stop using the system.
 Recall on the other hand is not an interesting quantity in this situation. Doctors will
@@ -1173,18 +1194,20 @@ only look at very few recommended letters and it is of no concern whether or not
 large fraction of relevant documents is retrieved. However, an interesting question,
 somewhat related to recall, is whether or not the most relevant letters are retrieved
 first. We will address this question after examining the precision of our system.
-Note that for another use-case recall might be more important than precision.
-In our usage scenario a possible implementation of the system could always retrieve the four highest ranked letters to a given reference letter. Therefore we ask the
-question of what precision we can achieve, when recommending the "best" four or
-even fewer letters. Figure 4.4a shows what level of precision the system can achieve,
-when stopping retrieval of letters at a given rank. As is apparent from this figure precision is rather low at a level of roughly 0.55 when presenting all four "best" matches.
-Unfortunately not much increase in precision can be gained by presenting a fixed
-number of fewer letters than four, with a maximal precision of 0.59 when presenting
-the two letters with highest cosine similarity. This means that little more than every
-second retrieved letter is relevant. From figure 4.3 it is apparent, however, that we
-can do better, when incorporating information about the absolute cosine similarity
-and not only the ranking of the letters. In this figure it is apparent, that we can
-get up to a precision of 1, if we present only letters with a cosine similarity higher
+Note that for another use case recall might be more important than precision.
+In our usage scenario a possible implementation of the system could always
+retrieve the four highest ranked letters to a given reference letter. Therefore we
+ask the question of what precision we can achieve, when recommending the "best"
+four or even fewer letters. Figure 4.4a shows what level of precision the system can
+achieve, when stopping retrieval of letters at a given rank. As is apparent from this
+figure precision is rather low at a level of roughly 0.55 when presenting all four "best"
+matches. Unfortunately not much increase in precision can be gained by presenting
+a fixed number of fewer letters than four, with a maximal precision of 0.59 when
+presenting the two letters with highest cosine similarity. This means that little more
+than every second retrieved letter is relevant. From figure 4.3 it is apparent, however,
+that we can do better, when incorporating information about the absolute cosine
+similarity and not only the ranking of the letters. In this figure it is apparent, that we
+can get up to a precision of 1, if we present only letters with a cosine similarity higher
 than 0.4. This in turn means that only for few reference letters some comparison
 
 A textual recommender system and other text mining applications
@@ -1196,28 +1219,29 @@ Chapter 4. Recommender System
 
 letters are retrieved. In figure 4.4b we examine this relationship more closely. We
 restrict ourselves to letters of rank four or lower and plot the precision of retrieved
-letters as a function of a varying cosine similarity threshold. Instead of labeling
-the x-axis with this threshold, however, we show the average number of retrieved
-letters per query or reference letter. Thereby we can visualize the trade-off between
-higher precision and fewer retrieved letters. Increasing precision this way is much
-easier achievable. This though comes with the cost that for some reference letters
-no comparison letters might be retrieved. Unfortunately we believe that the recommender system is of highest value to doctors in cases of very uncommon patients. In
-those cases, however, it is probably least likely to find other letters with high cosine
-similarity to the current one in the database. Therefore the very promising results
-of figure 4.4b have to be taken with a grain of salt for real application scenarios.
+letters as a function of a varying cosine similarity threshold. Instead of labeling the
+x-axis with this threshold we show the average number of retrieved letters per query
+or reference letter. Thereby we can visualize the trade-off between higher precision
+and fewer retrieved letters. Increasing precision this way is much easier achievable.
+This though comes with the cost that for some reference letters no comparison
+letters might be retrieved. Unfortunately we believe that the recommender system
+is of highest value to doctors in cases of very uncommon patients. In those cases,
+however, it is probably least likely to find other letters with high cosine similarity
+to the current one in the database. Therefore the very promising results of figure
+4.4b have to be taken with a grain of salt for real application scenarios.
 Next we turn to the question whether the most relevant letters are retrieved
-first. This question is hard to answer, since we only know of five letters how relevant
-they are to a reference letter. It remains unclear what rating subjects would have
-assigned to the other letters from our database. A related question though can
-provide some insight into this problem. We look at how well the ranking of the
-algorithm corresponds to the ranking of the experts, given by their rating. We
-compare these two rankings with the spearman rank correlation coefficient. The
-correlation between the ranking given by the average rating and the ranking of the
-algorithm is 0.39. While this is not particularly high, it is still far better than
-chance (spearman coefficient of 0). The inter-rater agreement among the experts
-when calculated accordingly (i.e. without follow-up pairs) is 0.72. Summarizing one
-can state that our systems ranking is well above chance, but still quite far below
-human gold standard.
+first. This question is hard to answer, since we only know of five letters how relevant they are to a reference letter. It remains unclear what rating subjects would
+have assigned to the other letters from our database. A related question though
+can provide some insight into this problem. We look at how well the ranking of the
+algorithm corresponds to the ranking of the experts, given by their rating. We compare these two rankings with the spearman rank correlation coefficient. Again we
+estimate effect sizes with 100,000 bootstrap resamples. The correlation between the
+ranking given by the average rating and the ranking of the algorithm is 0.39 (95%
+CI: [0.22, 0.56]). While this is not particularly high, it is still far better than chance
+(spearman coefficient of 0). The inter-rater agreement among the experts when calculated accordingly (i.e. without follow-up pairs) is 0.71 (95% CI: [0.63, 0.79]). We
+also directly estimate the difference between inter-expert agreement and algorithm
+to expert agreement. In the mean the algorithm to expert agreement lies 0.33 below the inter-expert agreement (95% CI: [0.15, 0.52]). Summarizing one can state
+that our system’s ranking is well above chance, but still quite far below human gold
+standard.
 
 Considerations for further Work
 We have two reasons to believe that our system performs even better in reality than
@@ -1228,14 +1252,10 @@ is because in a much larger database more well fitting documents are expected fo
 each reference letter. For figure 4.3 this means, that we would expect almost no blue
 points on the left and many more in the region around a cosine similarity of 0.4.
 These points most likely will be rated highly by subjects, as are all points with such
-a cosine similarity in our experiment. In figure 4.4a and 4.4b this probably shifts
-both curves up higher. Second we have reason to believe that some of the letter
+a cosine similarity in our experiment. In figure 4.4a and 4.4b this effect probably
+shifts both curves up higher. Second there is reason to believe that some of the letter
 pairs with low cosine similarity, but high subject rating are due to psychological
 adjusting. If during one trial only rather badly fitting letters are presented, we
-believe that subjects adjust their rating scale and rate partially fitting letters higher
-than normally (!correct! Frank nach Paper fragen). Therefore we believe that points
-in the upper left corner of figure 4.3 are not as problematic as it might seem. In
-the figure it looks like some are highly relevant although they have very low cosine
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1292,31 +1312,28 @@ Figure 4.5: (a): Histogram of differences in rating of the "best" and the random
 letter for each trial. (b): Histogram of the differences in the means of averaged subject
 ratings of the two groups for 100.000 bootstrap resampled datasets.
 
-similarity and will therefore probably not be retrieved in practice. If the assumption,
-that subjects adjust their rating scales, is correct, then some of the letters in this
-region are probably less relevant than it seems from our data.
-Finally one can ask whether there are possibilities to improve the system further.
-The tf-idf embedding method does not have hyperparameters, so no further tuning
-of those is possible. We believe, however, that combining similarity measures from
-several embedding approaches is useful. Of the five embedding methods we tested
-only paragraph vector is a promising option for improving the results of the retrieval.
-Bag of words is more or less the simple basis for tf-idf, LSA is highly correlated with
-tf-idf as it is a feature compressed version of the latter, LDA performed severely worse
-than all other methods, leaving only paragraph vector. This method performed
-almost as well as tf-idf during our fine-tuning and computes feature vectors in a
-very different way, possibly complementing tf-idf well. Indeed we find cues that
-combining these two methods yields substantially better results. We again compare
-the ratings given to letter pairs from two groups. One of the groups consists of
-the letters from our experimental dataset, that paragraph vector ranks on the first
-place out of all letters from our complete database. I.e. letters in this group are
-ranked among the top four by tf-idf and top one by paragraph vector in our whole
-dataset. We only find 9 of these letters out of the 30 possible trials. The other group
-consists of the 9 randomly selected letters from the corresponding trials. Again
-we look at a histogram of differences in rating in figure 4.5a and the distribution
-of average differences for 100.000 bootstrap resamples in figure 4.5b. Comparing
-theses with figures 4.1a and 4.1b, where only tf-idf information was used, we see
-that additionally using information from the paragraph vector embedding improves
-results substantially. The mean of the average difference in ratings for example is
+believe that subjects adjust their rating scale and rate partially fitting letters higher
+than normally. Effects like this are often observable in psychological experiments
+(Poulton, 1975). Therefore we believe that points in the upper left corner of figure
+4.3 are not as problematic as it might seem. In the figure it looks like some are highly
+relevant although they have very low cosine similarity and will therefore probably
+not be retrieved in practice. If the assumption, that subjects adjust their rating
+scales, is correct, then some of the letters in this region are probably less relevant
+than it seems from our data.
+Finally one can ask whether there are possibilities to improve the system further. The tf-idf embedding method does not have hyperparameters, so no further
+tuning of those is possible. We believe, however, that combining similarity measures
+from several embedding approaches is useful. Of the five embedding methods we
+tested only paragraph vector is a promising option for improving the results of the
+retrieval. Bag of words is more or less the simple basis for tf-idf, LSA is highly
+correlated with tf-idf as it is a feature compressed version of the latter, LDA performed severely worse than all other methods, leaving only paragraph vector. This
+method performed almost as well as tf-idf during our fine-tuning and computes feature vectors in a very different way, possibly complementing tf-idf well. Indeed we
+find cues that combining these two methods yields substantially better results. We
+again compare the ratings given to letter pairs from two groups. One of the groups
+consists of the letters from our experimental dataset, that paragraph vector ranks
+on the first place out of all letters from our complete database. I.e. letters in this
+group are ranked among the top four by tf-idf and top one by paragraph vector
+in our whole dataset. We only find 9 of these letters out of the 30 possible trials.
+The other group consists of the 9 randomly selected letters from the corresponding
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1325,9 +1342,21 @@ for clinical data
 
 Chapter 4. Recommender System
 
-improved from 1.93 to 3.69 units on the rating scale from 1 to 7. We therefore
-believe that work addressing how to combine information from different embedding
-methods is a worthwhile task and should be undertaken by further research.
+trials. Again we look at a histogram of differences in rating in figure 4.5a and the
+distribution of average differences for 100.000 bootstrap resamples in figure 4.5b.
+First, one has to note that neither the bootstrap nor the standard calculated means
+and confidence intervals are to be trusted completely at a sample size of 9. Additionally, one can see from figure 4.5b that the assumption of normality does not hold
+perfectly this time. Indeed we face an upward bounding issue and the distribution’s
+left tail is longer, than the right tail. Due to the violation of the assumption of
+normality, the confidence interval estimates differ. Comparing the mean and confidence interval estimates with figures 4.1a and 4.1b, where only tf-idf information
+was used, though, we see that additionally using information from the paragraph
+vector embedding improves results substantially. The mean of the average difference
+in ratings for example is improved from 1.93 to 3.69 units on the rating scale from 1
+to 7. Therefore we conclude that using information from both embedding methods
+is highly useful, although we distrust the estimation of the mean to some degree
+due to the small sample size. In summary we believe that work addressing how to
+combine information from different embedding methods is a worthwhile task and
+should be undertaken by further research.
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1335,29 +1364,39 @@ for clinical data
 Chapter 5
 
 Intelligent Search
+5.1
+
+Research Use Case
+
 With the set of methods used throughout this work, we can address a related, but
-distinct problem. Say for research purposes it is necessary to find as many documents of patients with a certain feature as possible. Traditionally this can be done
-with the help of string matching algorithms, that search the database. Even in easy
-scenarios, however, these algorithms might fail to retrieve all relevant documents.
-As mentioned earlier, diseases are spelled differently in different documents. Additionally for example one might be interested in all patients with a specific disease of
-themselves, but a string matching algorithm returns documents where this disease
-is mentioned in the family anamnesis, as well.
-The question arises whether we can do better, when using the embedding methods described earlier. In the scenario we envision, a researcher has one letter of a
-patient with a particular feature available and tries to retrieve more letters of patients with the same feature from the database. For this retrieval task we make use
-of a hybrid approach of a prototype classifier and logistic regression. In the beginning we use the prototype classifier to retrieve more samples. The next document
-to be retrieved is the one with highest cosine similarity to an artificial "prototype"
-letter. I.e. an artificial letter representation formed by averaging the thus far obtained true positive samples. Note that in the beginning this is equivalent to the
-standard recommending procedure, as the letter with highest cosine similarity to one
-reference letter is retrieved. The subject has then to label the retrieved letter as either relevant or non-relevant. Once enough letters have been labeled, the prototype
-classifier is replaced by a logistic regression classifier (lrc). This lrc is trained with
-all thus far labeled documents. The next letter to be retrieved is the one that the
-lrc assigns highest probability. It is labeled by the subject and the lrc is retrained
-with the new set of labeled samples. Thereby one can retrieve as many relevant
-letters as desired. The important measure of performance for this research system
-is: How many irrelevant or false positive samples have to be looked through for
-every relevant or true positive sample obtained. This quantity can be calculated as
-F P/T P , i.e. the number of false positives divided by the number of true positives.
-We can measure it for different fractions of relevant letters retrieved. It is equivalent
+distinct problem. Say for research purposes it is necessary to find as many documents
+of patients with a certain feature as possible. Traditionally this can be done with the
+help of string matching algorithms, that search the database. Even in easy scenarios,
+though, these algorithms might fail to retrieve all relevant documents. As mentioned
+earlier, diseases are spelled differently in different documents. Additionally, a string
+matching algorithm will return documents, in which a specific disease is mentioned
+in the family anamnesis, while one is only interested in patients having this disease
+themselves. In the specific use case we envision a researcher starts with the physician
+letter of one patient and is interested in retrieving similar patients from the database.
+The initial letter is given as input to our system and the most similar letter is
+retrieved from the database. The user has to decide whether this letter indeed has
+the demanded feature. The document is then either labeled as relevant or nonrelevant. This procedure of retrieving one letter and deciding about its usefulness is
+repeated until the user has found sufficiently many letters with the required feature.
+We can address this use case with our embedding methods in the following way.
+
+5.2
+
+Search System
+
+To obtain our goal of retrieving the letters with the required features, we make use of
+a hybrid approach of an exemplar classifier and logistic regression. In the beginning
+we use the exemplar classifier to retrieve more samples. The next document to be
+retrieved is the one with highest average cosine similarity to the thus far obtained
+true positive samples. Note that in the beginning this is equivalent to the standard
+recommending procedure, as the letter with highest cosine similarity to one reference
+letter is retrieved. The subject has then to label the retrieved letter as either relevant
+or non-relevant. Once enough letters have been labeled, the exemplar classifier is
+replaced by a logistic regression classifier (lrc). This lrc is trained with all thus far
 
 27
 
@@ -1365,11 +1404,64 @@ We can measure it for different fractions of relevant letters retrieved. It is e
 
 Chapter 5. Intelligent Search
 
+labeled documents. The next letter to be retrieved is the one that the lrc assigns
+highest probability. It is labeled by the subject and the lrc is retrained with the
+new set of labeled samples. Thereby one can retrieve as many relevant letters as
+desired. The important measure of performance for this research system is: How
+many irrelevant or false positive samples have to be looked through for every relevant
+or true positive sample obtained. This quantity can be calculated as F P/T P , i.e. the
+number of false positives divided by the number of true positives. We can measure
+it for different fractions of relevant letters retrieved. It is equivalent to measuring
+precision at different levels of recall, but easier interpretable for the usefulness of
+this particular system.
+
+5.3
+
+System Performance
+
+To measure F P/T P empirically we take a subset of 135 physician letters and label
+them manually for five prevalent diseases—“Chronic lymphocytic leukemia” (cll),
+“multiple myeloma” (mm), “breast cancer” (bc), “follicular lymphoma” (fl) and
+“diffuse large B-cell lymphoma” (dlbcl). In the subset of 135 letters these diseases
+appear between 9 and 14 times. We start out with one letter from one of the groups,
+retrieve the best match according to our retrieval method, classify this retrieved
+letter as either relevant or non-relevant, update our retrieval method and present
+the next candidate. This is done until all relevant letters are retrieved. We try this
+procedure with every starting letter possible and average over those trials. Thereby
+we obtain a mean estimate for F P/T P when trying to find the first relevant, and
+50%, 90%, and 100% of relevant documents for the case of each of the five diseases
+tested. The results of this experiment can be seen in figure 5.1. We start using
+the logistic regression classifier, after the retrieval of five false positives (a rather
+arbitrary value that was found through manual adjustments).
+On the y-axis of this figure we plot the means and standard errors of the means of
+F P/T P for each disease for a prespecified fraction of retrieved relevant documents.
+This way one can read from the plot how many false positives one has to look at
+to obtain a new true positive sample. In the example of cll we have to look at
+roughly one false positive for every five true positives we retrieve, in the case of
+100% retrieval. This makes it very convenient to search the database for more cll
+patients. However, as one can see from the figure it works considerably less well
+for other diseases. Still even in the case of dlbcl we only have to look at 3.5 false
+positives to get one true positive sample. For research purposes we deem this value
+good enough. It is also apparent from the figure that often it is relatively hard to
+retrieve the first match and becomes easier afterwards. One can overcome this initial
+phase by providing the system with several positive examples to begin with.
+With this evaluation we showed that it is in principle possible to construct a
+research retrieval system that is usable in practice. It remains unknown though,
+how well this system works for less evident features than diseases. One might be
+interested in relatively less defining features of the document’s text, than disease.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+5.3. System Performance
+
 4
 
 FP / TP
 
 3
+
+29
 
 cll
 mm
@@ -1396,43 +1488,6 @@ positives divided by the true positives versus how many relevant letters are ret
 each of the five diseases—“Chronic lymphocytic leukemia” (cll), “multiple myeloma” (mm),
 “breast cancer” (bc), “follicular lymphoma” (fl) and “diffuse large B-cell lymphoma” (dlbcl).
 
-to measuring precision at different levels of recall, but easier interpretable for the
-usefulness of this particular system.
-To measure F P/T P empirically we take a subset of 135 physician letters and
-label them manually for five prevalent diseases—“Chronic lymphocytic leukemia”
-(cll), “multiple myeloma” (mm), “breast cancer” (bc), “follicular lymphoma” (fl)
-and “diffuse large B-cell lymphoma” (dlbcl). In the subset of 135 letters these
-diseases appear between 9 and 14 times. We start out with one letter from one
-of the groups, retrieve the best match according to our retrieval method, classify
-this retrieved letter as either relevant or non-relevant, update our retrieval method
-and present the next candidate. This is done until all relevant letters are retrieved.
-We try this procedure with every starting letter possible and average over those
-trials. Thereby we obtain a mean estimate for F P/T P when trying to find the first
-relevant, and 50%, 90%, and 100% of relevant documents for the case of each of the
-five diseases tested. The results of this experiment can be seen in figure 5.1. We
-start using the logistic regression classifier, after the retrieval of five false positives
-(a rather arbitrary value that was found through manual adjustments).
-On the y-axis of this figure we plot the means and standard errors of the means of
-F P/T P for each disease for a prespecified fraction of retrieved relevant documents.
-This way one can read from the plot how many false positives one has to look at
-to obtain a new true positive sample. In the example of cll we have to look at
-roughly one false positive for every five true positives we retrieve, in the case of
-100% retrieval. This makes it very convenient to search the database for more cll
-patients. However, as one can see from the figure it works considerably less well
-
-A textual recommender system and other text mining applications
-for clinical data
-
-29
-for other diseases. Still even in the case of dlbcl we only have to look at 3.5 false
-positives to get one true positive sample. For research purposes we deem this value
-good enough. It is also apparent from the figure that often it is relatively hard to
-retrieve the first match and becomes easier afterwards. One can overcome this initial
-phase by providing the system with several positive examples to begin with.
-With this evaluation we showed that it is in principle possible to construct a
-research retrieval system that is usable in practice. It remains unknown though,
-how well this system works for less evident features than diseases. One might be
-interested in relatively less defining features of the document’s text, than disease.
 In those cases it is probably harder for the system to retrieve relevant documents.
 A great advantage of this system, however, is that it learns from examples. One
 might be interested in an unusual combination of features, say for example all male
@@ -1446,6 +1501,17 @@ for clinical data
 Chapter 6
 
 Discussion
+In the motivation section of our introduction we discuss several cognitive science
+results about human reasoning. We present evidence for the assumption that humans
+often reason from examples stored in memory. The theory on this aspect of cognitive
+science is not as clear-cut, though. There is in fact a great controversy between two
+different views on this subject. So called exemplar theories indeed argue that humans
+reason based on specific examples stored in memory. The contrary viewpoint—
+prototype theory—suggests that humans form abstract prototypes and cognitive
+processes are based on these prototypes rather than specific examples. A second,
+complicating issue arises, because there is, additionally, evidence that humans reason
+with conscious hypothesis testing rather than pattern matching (based on examples
+or prototypes). In certain situations it is indeed plausible
 In this thesis we have developed a prototype for an automatized recommendation
 system on a physician letter database. We conducted an experiment to evaluate
 whether or not this system is usable in practice. Thereby we found strong evidence
@@ -1460,21 +1526,206 @@ by several orders of magnitude.
 Then a usable prototype will have to be made available for doctors in the hospital.
 Initially we will have to encourage them to use the recommender. After a testing
 period their personal critiques can be collected and assessed. If this yields positive
-results, the system can be incorporated into the clinics documentation system. At
+results, the system can be incorporated into the clinic’s documentation system. At
 that point recommendations can be made automatically available during the writing
 of a new letter.
 It will also be possible to extend the system to work on databases of several
-clinics. If these databases are used collectively for the recommendation procedure,
-however, issues of anonymization will arise. Doctors from one clinic are not allowed
-to view the patient data from other clinics without the patient’s consent. In a
-realistic scenario the system might only tell doctors, that letters of similar patients
-are available at other clinics and the doctor has to obtain those letters manually.
-Thereby the usefulness will suffer greatly, though, and this procedure will surely
-only be done for very uncommon patients.
+clinics. If these databases are used collectively for the recommendation procedure
 
 31
 
-Bibliography
+32
+
+Chapter 6. Discussion
+
+issues of anonymization will arise. Doctors from one clinic are not allowed to view the
+patient data from other clinics without the patient’s consent. In a realistic scenario
+the system might only tell doctors, that letters of similar patients are available
+at other clinics and the doctor has to obtain those letters manually. Thereby the
+usefulness will suffer greatly, though, and this procedure will surely only be done for
+very uncommon patients.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+Appendix A
+
+Screenshots
+
+IX
+
+X
+
+Appendix A. Screenshots
+
+Sehr geehrte Frau Kollegin, sehr geehrter Herr Kollege,
+wir berichten Ihnen nachfolgend über o.g. Patienten, der sich am 19.05.2016 in unserer
+Ambulanz vorstellte.
+Diagnosen:
+1. Multiples Myelom IgG kappa ED 01/10
+Stadium IA nach Durie & Salmon (initial Hb 14,2 g/dl, Ca 2,24mmol/l;
+im Pariser Schema keine Osteolyse; IgG 2180 mg/l)
+ISS Stadium I (ß2-Mikroglobulin 1,61 mg/l, Albumin 4,3 g/dl).
+Zytogenetik: Deletion 13q14, Zugewinn 1q21
+2. Inaktive Antrumgastritis
+3. Alopezie seit ca. 1977, vermutlich immunologisch bedingt
+4. Arterielle Hypertonie ED 09/11
+5. Hämangiom Leberlappen re 1,25cm ED 11/09
+6. Benigne Prostatahyperplasie
+7. Z.n. Pneumonie 08/13
+Aktueller Remissionsstand: SD
+Aktueller Karnofsky-Index: 100%
+Vorsorgeuntersuchungen: ÖGD/Koloskopie 02/11 mit Polypabtragung, nächste ÖGD +
+Koloskopie für 2016 geplant.
+Jetzt: Ambulante Verlaufskontrolle
+Verlaufsparameter: Tumormarker, KMP, Immunfixation Serum/Urin
+Verlauf und Therapie:
+seit ca. 2005 wiederholt nachgewiesene, erhöhte Gammaglobuline in der Eiweißelektrophorese,
+graduell steigend
+26.11.09
+KMP: histologisch ca. 20% Infiltration durch Multiples Myelom hohen Reifegrades
+vom Leichtkettentyp kappa
+27.11.09
+gamma-Globuline 29,7% in EW-Elektrophorese
+21.12.09
+Röntgen Pariser Schema: Alte Fraktur 8. Rippe li lateral, degenerative WSVeränderungen betont HWK 6/7, mittlere BWS, untere LWS. Leichtgradige Coxarthrose
+bds. Keine Osteolysen.
+19.01.10
+Erstvorstellung Ambulan: watch and wait
+03-09/10
+IgG, ß2-MG ansteigend, k fr LK sinkend
+11/10
+IgG, k fr LK leicht ansteigend.
+03/11
+IgG leicht fallend (von 2346 auf 2284 mg/dl), k fr LK leicht steigend (von 90 auf 101
+mg/l).
+09/11
+IgG ansteigend (2567 mg/dl), k fr LK fallend (79 mg/l).
+17.01.12
+MR-Thorax bei persistenter Schmerzsymptomatik Rippenbogen re: keine
+Plasmozytommanifestationen, bekanntes Leberhämangiom.
+k fr LK 99 mg/l, IgG 2467 mg/dl
+15.03.12
+IgG 2508 mg/dl, ß2-MG 2,5 mg/l, k fr LK 86,1 mg/l
+22.11.12
+IgG 2778 mg/dl, ß2-MG 2,33 mg/l, k fr LK 92,8 mg/l
+Pariser Schema: kein Hinweis auf Osteolysen
+13.06.13
+IgG 2673 mg/dl, k fr LK 96,4 mg/l
+12.12.13
+IgG 2988 mg/dl, k fr LK 64,5 mg/l
+27.02.14
+IgG 2983 mg/dl, k fr LK 63,4 mg/l
+28.08.14
+IgG 3045 mg/dl, k fr LK 59,3 mg/l
+05.03.15
+IgG 2844 mg/dl, k fr. LK 106 mg/l (cave: Umstellung der Meßtechnik im Labor)
+21.05.15
+IgG 3006 mg/dl, k fr. LK 115 mg/l --> Start Therapie mit 20 mg Decortin 1x/Monat
+25.06.15
+IgG 2985 mg/dl, k fr. LK 122 mg/l, monatlich 40 mg Decortin
+23.07.15
+IgG 2951 mg/dl, k fr. LK 136 mg/l, monatlich 40 mg Decortin
+24.07.15
+Vorstellung Uniklinik Heidelberg:
+Knochenmarkpunktion: zytologisch 9% Plasmazellen, histologisch 10 bis 15%
+Plasmazellanteil. Zytogenetik: Deletion 13q14 (74%), Zugewinn 1q21 (73%, 3 Kopien).
+Ganzkörper-MRT: keine myelomtypischen Läsionen
+19.05.16
+IgG 2792 mg/dl, k fr. LK 126 mg/l, SD
+
+Figure A.1: First page of one exemplary physician letter. At the top is a short and
+general greeting. Next one can see a list of several diagnosis with additional information
+about medical parameters. The next section includes more medical parameters not related
+to one specific diagnosis. Then the therapy history is shown, including medical disease
+parameters over time and special results obtained e.g. during an MRI.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+XI
+
+Bisherige Medikation: Ebrantil 60 mg 1-0-1, Candesartan 32 mg 1-0-0, Urotec 1-0-0
+Diagnostik:
+Labor vom 19.05.2016:
+Hämatologie: Leukozyten 7,28 Tsd/µl; Thrombozyten 228 Tsd/µl; Erythrozyten 4,65 Mio/µl;
+Hämoglobin 14,0 g/dl; Hämatokrit 40,3 %; MCV 86,7 fl; MCH (HbE) 30,1 pg; MCHC 34,7
+g/dl;
+Differentialblutbild: Neutrophile masch. 60,7 %; Lymphozyten masch. 24,5 %; Monozyten
+masch. 8,1 %; Eosinophile masch. 5,2 %; Basophile masch. 1,4 %; Neutrophile masch.abs.
+4,42 Tsd/µl; Lymphozyten masch.abs. 1,78 Tsd/µl; Monozyten masch.abs. 0,59 Tsd/µl;
+Eosinophile masch.abs. 0,38 Tsd/µl; Basophile masch.abs. 0,10 Tsd/µl; Hämolyse-Index
+(Serum) 12;
+Klinische Chemie:
+Natrium 142 mmol/l; Kalium 4,4 mmol/l; Calcium 2,26 mmol/l; Magnesium 0,83 mmol/L;
+Harnstoff 40 mg/dl; Serum-Kreatinin 1,09 mg/dl; GFR-Abschätzung(MDRD) 66
+ml/min/1.73qm; CKD-EPI GFR geschätzt 66 ml/min/1.73qm; Glukose im Serum 91 mg/dl;
+LDH 179 U/l; GOT (AST) 30 U/l; GPT (ALT) 23 U/l; Alk. Phosphatase 93 U/l; Gamma-GT 49
+U/l; Bilirubin gesamt 0,8 mg/dl; C-reaktives Protein < 3 mg/l; Gesamt-Eiweiß 8,3 g/dl;
+Albumin 4,2 g/dl; Albumin elektroph. %; alpha-1-Globulin %; alpha-2-Globulin %; beta Globulin %; gamma - Globulin %; Quant. M-Gradient g/dl; Quant. M-Gradient % %;
+Immunglobulin A 126 mg/dl; Immunglobulin G 2792 mg/dl; Immunglobulin M 58 mg/dl; ß2Microglobulin 2,16 mg/l; k fr.Leichtketten (Serum) 126,00 mg/l; l fr.Leichtketten (Serum) 13,20
+mg/l; k/l-Quotient (Serum) 9,55; k/l-Differenz (Serum) 112,80 mg/l;
+Anamnese und Epikrise:
+Der Patient stellt sich bei bekanntem multiplem Myelom vom Typ IgG kappa zur klinischen
+Verlaufskontrolle in unserer Ambulanz vor.
+Auf Nachfrage werden Infekte und eine B-Symptomatik verneint. Es besteht eine gute
+Belastbarkeit im Alltag. Es liegt lediglich eine leicht belegte Stimme vor ohne Hinweis auf
+eine therapiebedürftige Infektion. Eine kardiologische Kontrolle bei arterieller Hypertonie
+erbrachte zuletzt keinen pathologischen Befund.
+Unter dem Absetzen der monatlichen Therapie mit Decortin 40 mg seit Oktober 2015 zeigt
+sich erfreulicherweise eine Konstanz des IgG und der kappa freien Leichtketten.
+Wir besprachen mit dem Patienten, dass aus unserer Sicht aktuell anhand der vorliegenden
+Befunde die Therapie mit Decortin weiter pausiert werden könne und eine Wiedervorstellung
+in 6 Monaten vorgesehen ist. Sollte es im mittelfristigen Verlauf zu einem Anstieg der
+Myelomparameter kommen, kann über eine Wiederaufnahme der Decortintherapie
+nachgedacht werden. Bezüglich eines Lipoms am Hinterkopf rechtsseitig wägt der Patient
+momentan eine chirurgische Entfernung ab. Wir empfehlen hier eine konsiliarische Beratung.
+Procedere:
+Einen unkomplizierten Verlauf vorausgesetzt, Wiedervorstellung am 17.11.16 zur
+Blutentnahme der betreuenden Station und in unserer Ambulanz zur Besprechung der
+Befunde.
+Mit freundlichen kollegialen Grüßen
+
+Figure A.2: Second page of one exemplary physician letter. At the top one can see the
+so far used medication. The next section describes detailed laboratory examination results
+of blood counts. Then the current anamnesis is shown, where e.g. the patient’s current
+complaints are listed. The subsequent paragraph discusses the procedure for the next six
+months. Finally "goodbye regards" are given.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+XII
+
+Appendix A. Screenshots
+
+Figure A.3: Screenshot of the whole webpage, where subjects conducted the experiment.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+XIII
+
+Figure A.4: Screenshot of the left part of the webpage, where subjects conducted the
+experiment. In the left column the different reference letters can be selected. The chosen
+reference letter is displayed right of this column.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+XIV
+
+Appendix A. Screenshots
+
+Figure A.5: Screenshot of the right part of the webpage, where subjects conducted the
+experiment. In the right column the different comparison letters can be selected and rated
+for their similarity to the current reference letter. The chosen comparison letter is displayed
+left of this column.
+
+A textual recommender system and other text mining applications
+for clinical data
+
+Bibliography
 Aamodt, A. and Plaza, E. (1994), ‘Case-Based Reasoning: Foundational Issues,
 Methodological Variations, and System Approaches’, AI COMMUNICATIONS
 7(1), 39–59.
@@ -1500,9 +1751,9 @@ Elstein, A. S. and Schwarz, A. (2002), ‘Clinical problem solving and diagnosti
 Gutmann, M. U. and Hyvärinen, A. (2012), ‘Noise-Contrastive Estimation of Unnormalized Statistical Models, with Applications to Natural Image Statistics’,
 Machine Learning Research 13, 307–361.
 
-IX
+XV
 
-X
+XVI
 
 Bibliography
 
@@ -1542,7 +1793,7 @@ for clinical data
 
 Bibliography
 
-XI
+XVII
 
 Mikolov, T., Sutskever, I., Chen, K., Corrado, G. and Dean, J. (2013), Distributed
 Representations of Words and Phrases and their Compositionality, in ‘Advances
@@ -1550,6 +1801,8 @@ in Neural Information Processing Systems’, pp. 3111–3119.
 Morin, F. and Bengio, Y. (2005), Hierarchical Probabilistic Neural Network Language Model, in ‘Proceedings of the international workshop on artificial intelligence and statistics’, pp. 246–252.
 Nissen, T. and Wynn, R. (2014), ‘The clinical case report: a review of its merits and
 limitations’, BioMedCentral Research Notes 7(1), 264.
+Poulton, E. C. (1975), ‘Range Effects in Experiments on People’, The American
+Journal of Psychology 88(1), 3–32.
 Sandu, N., Chowdhury, T. and Schaller, B. J. (2016), ‘How to apply case reports
 in clinical practice using surrogate models via example of the trigeminocardiac
 reflex’, Journal of Medical Case Reports 10(1), 84.
@@ -1570,6 +1823,6 @@ belief, original and the result of my own investigations, except as acknowledged
 has not been submitted, either in part or whole, for a degree at this or any other
 university.
 
-Osnabrück, June 11, 2017
+Osnabrück, June 15, 2017
 
 
