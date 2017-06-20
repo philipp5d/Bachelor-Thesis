@@ -7,7 +7,7 @@ other text mining applications for
 clinical data
 Philipp Hummel
 
-June 15, 2017
+June 17, 2017
 
 First supervisor:
 Second supervisor:
@@ -20,25 +20,23 @@ In unusual clinical situations, doctors would often like to review cases of simi
 patients to guide their decision making for the current one. Retrieving the relevant
 cases, however, is a hard and time-consuming task. This thesis works on building a
 recommender system that automatically finds physician letters similar to a specified
-reference letter in an information retrieval like manner. We use a small dataset of free
-text physician letters of oncology patients to do exploratory work on this issue. We
-provide a prototypical system that gives recommendations on this dataset and verify its performance through a psychological experiment assessing doctors’ similarity
-judgments of those letters. We find that the similarity measure of our recommender
-system correlates strongly with doctors’ similarity judgments. Additionally, we explore other text mining applications like automatic diagnosis extraction based on
-this dataset.
+reference letter in an information retrieval like manner. We use a small dataset of
+free text physician letters of oncology patients to do exploratory work on this issue. We provide a prototypical system that gives recommendations on this dataset
+and verify its performance through a psychological experiment assessing physicians’
+similarity judgments of those letters. We find that the similarity measure of our
+recommender system correlates strongly with doctors’ similarity judgments. Additionally, we explore other text mining applications like searching for letters more
+intelligently based on this dataset.
 
 Acknowledgements
-I would like to thank several people and acknowledge their contributions to this
-thesis. First and foremost I want to thank Dr. Frank Jäkel for his guidance, his
-expertise in cognitive science, psychology and machine learning, and generally his
-well thought-out remarks. Thanks also to Dr. Sascha Lange and the company
-PSIORI for making this thesis possible by selecting me for this project, providing
-the objective for the thesis, and sharing their contacts and resources.
+I would like to thank several people and acknowledge their contributions to this thesis. First and foremost I want to thank Dr. Frank Jäkel for his guidance, his expertise
+in cognitive science, psychology and machine learning, and his well thought-out remarks in general. Thanks also to Dr. Sascha Lange and the company PSIORI for
+making this thesis possible by selecting me for this project, providing the objective
+for the thesis, and sharing their contacts and resources.
 Special thanks go to Prof. Dr. Roland Mertelsmann who envisioned this project
 for years, gave many fruitful comments, established the connection to the University
 hospital Freiburg and motivated several other physicians and students to contribute
 to this project among other things by participating in the experiment.
-Lastly I want to thank Astrid Feiten, Judith Schepers and Lisa Dieminger for
+Lastly, I want to thank Astrid Feiten, Judith Schepers and Lisa Dieminger for
 their proof-reading, that went far beyond plain grammar correction.
 
 Contents
@@ -121,17 +119,16 @@ et al., 2008; Sandu et al., 2016). Importantly case reports allow practitioners 
 in-depth understanding of specific disease courses and provide educational material
 for students (Nissen and Wynn, 2014). Although case reports lack the scientific
 validity of large empirical studies, it is apparent that people have strong intuitions
-for the usefulness of them. During our collaboration with practicing doctors, we
-also found that practitioners use the clinical records of similar patients to guide
-problem-solving for the current patient. Especially when faced with hard or unusual
-cases doctors seek similar patient information from the hospital database. While
-this only shows that doctors think that reviewing similar cases helps them in their
-work, we will argue that this can indeed improve their medical problem-solving.
+for the usefulness of them. During our collaboration with practicing doctors, we also
+found that practitioners use the clinical records of similar patients to guide problemsolving for the current patient. Especially when faced with hard or unusual cases
+doctors seek similar patient information from the hospital database. While this only
+shows that physicians think that reviewing similar cases helps them in their work,
+we will argue that this can indeed improve their medical problem-solving.
 Cognitive scientists have discussed the usefulness of examples for reasoning processes for a long time and found that at least in some experimental settings reasoning
 processes are based on earlier presented examples (Medin and Schaffer, 1978). More
 recently these reasoning processes have also been studied in more realistic scenarios.
-Klein (2008) reviews models for decision making under real world circumstances.
-According to him experts interpret a situation based on its resemblance to remembered situations. Once a sufficiently similar situation has been retrieved from mem1
+Klein (2008) reviews models for decision making under real world circumstances. According to him experts interpret a situation based on its resemblance to remembered
+situations. Once a sufficiently similar situation has been retrieved from memory, ex1
 Additional Case Journals can be found at:
 Journal of Medical Cases: http://www.journalmc.org/index.php/JMC/index
 British Medical Journal Case Reports: http://casereports.bmj.com/site/about/index.xhtml
@@ -143,23 +140,24 @@ American Journal of Medical Case Reports: http://www.sciepub.com/journal/AJMCR
 
 Chapter 1. Introduction
 
-ory, experts apply the solution from the remembered situation to the current one
-in a thought experiment. They evaluate whether or not this solution strategy will
-lead to success and adjust it, if necessary. In case no way to adequately adjust the
-solution can be found, another situation is retrieved from memory. This process is
-repeated until a sufficiently good solution is found. Presentation of similar cases
-should, therefore, aid doctors’ decision making in an actual clinical setting. The
-medical domain has also been directly addressed by research in cognitive science.
-Elstein and Schwarz (2002) have concluded that for medical problem-solving reasoning processes can be divided into two distinct categories. For cases perceived as easy
-doctors apply a kind of pattern recognition based on the examples they have encountered before and use solutions stored in memory. For harder cases, however, doctors
-need to rely on a more elaborate reasoning process. They have to consciously generate and eliminate hypotheses to be able to solve the problem. It is plausible that
-hypothesis generation, as well as hypothesis falsification, is also guided by the doctor’s experience with earlier patients. From a more theoretical perspective, Kolodner
-and Kolodner (1987) have specifically argued that “[i]ndividual experiences act as
-exemplars upon which to base later decisions” in medical problem-solving. Their
-research was partially driven by the desire to understand the way in which clinicians
-perform problem-solving but also by the goal of building artificial systems that can
-aid in this process. They argue that both humans and machines can learn from
-specific examples and use them to reason about new problems.
+perts apply the solution from the recalled situation to the current one in a thought
+experiment. They evaluate whether or not this solution strategy will lead to success
+and adjust it, if necessary. In case no way to adequately adjust the solution can be
+found, another situation is retrieved from memory. This process is repeated until a
+sufficiently good solution is found. Presentation of similar cases should, therefore,
+aid doctors’ decision making in an actual clinical setting. Research in cognitive science has also directly addressed the medical domain. Elstein and Schwarz (2002)
+have concluded that for medical problem-solving reasoning processes can be divided
+into two distinct categories. For cases perceived as easy doctors apply a kind of
+pattern recognition based on the examples they have encountered before and use
+solutions stored in memory. For harder cases, however, doctors need to rely on a
+more elaborate reasoning process. They have to consciously generate and eliminate
+hypotheses to be able to solve the problem. It is plausible that hypothesis generation, as well as hypothesis falsification, is also guided by the doctor’s experience
+with earlier patients. From a more theoretical perspective, Kolodner and Kolodner (1987) have specifically argued that “[i]ndividual experiences act as exemplars
+upon which to base later decisions” in medical problem-solving. Their research was
+partially driven by the desire to understand the way in which clinicians perform
+problem-solving but also by the goal of building artificial systems that can aid in
+this process. They argue that both humans and machines can learn from specific
+examples and use them to reason about new problems.
 Around the idea that artificial systems might learn from examples has evolved a
 whole branch of Artificial Intelligence (AI), which is called “Case-based reasoning”.
 This domain has been greatly influenced by psychological findings, some of them
@@ -169,20 +167,20 @@ Within this domain of AI, one of the greatest application areas is medicine. It 
 that the medical area does not only offer straightforward usage of examples, but also
 has a need for automatic aids for problem-solving (Begum et al., 2011).
 Given the practical, psychological and theoretical reflections above we believe
-that it would be helpful for practitioners to be able to review cases of similar patients. One particularly well-suited source for the retrieval of patient cases are
-databases of physician letters, as these letters provide concise summaries of the
-specifics of a patient that matter in practice. Search in these databases is, to our
-knowledge, usually limited to character matching procedures and therefore provides
-limited practical value for doctors. We, therefore, set out to build a prototypical
-recommender system on those physician letters to do automatic retrieval of only the
-relevant documents from a database.
+that it would be helpful for practitioners to be able to review cases of similar patients.
+One especially well-suited source for the retrieval of patient cases are databases of
+physician letters, as these letters provide concise summaries of the specifics of a patient that matter in practice. Search in these databases is, to our knowledge, usually
+limited to character matching procedures and therefore provides limited practical
+value for doctors. We, therefore, set out to build a prototypical recommender system
+on those physician letters to do automatic retrieval of only the relevant documents
+from a database.
 
 1.2
 
 Dataset
 
 To get a dataset for exploratory work on the recommender system we collaborated
-with the University Hospital Freiburg. The haematology and oncology department
+with the University Hospital Freiburg. The hematology and oncology department
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -192,21 +190,20 @@ for clinical data
 3
 
 has a database of approximately 190,000 German physician letters in PDF form
-(Spadaro, 2012) (!correct! noch nicht zufrieden, wie das item in der bibliography
-erscheint. Ich weiß allerdings auch nicht wie es richtig wäre.). These physician letters
-are free text documents written by the doctors to keep record of the patient’s visit.
-They usually include information about the patient’s age, sex, diagnosed diseases,
-therapy history, current complaints, many more medical details like blood counts,
-but also personal information like names and birth dates. One of these letters is
-shown in the appendix in figures A.1 and A.2. The letters generally follow a rough
-structure. Almost all of them include a letterhead (a greeting and introduction),
-a diagnosis (summarizing diagnosed diseases bullet point like), a therapy history
-(listing the past therapies with dates) and an anamnesis (free text about current
-complaints etc.) section, separated into individual paragraphs. In principal though,
-doctors are free to document this information in the way they please. The database
-does not, however, contain the information of 190,000 unique patients. For many
-patients several letters are included, as a new visit will often result in an updated
-letter, that is added to the database. We refer to these letters as “follow-up” letters.
+(Spadaro, 2012). These physician letters are free text documents written by the
+doctors to keep record of the patient’s visit. They usually include information about
+the patient’s age, sex, diagnosed diseases, therapy history, current complaints, many
+more medical details like blood counts, but also personal information like names and
+birth dates. One of these letters is shown in the appendix in figures A.1 and A.2. The
+letters generally follow a rough structure. Almost all of them include a letterhead (a
+greeting and introduction), a diagnosis (summarizing diagnosed diseases bullet point
+like), a therapy history (listing the prior therapies with dates) and an anamnesis (free
+text about current complaints, etc.) section, separated into individual paragraphs.
+In principal though, doctors are free to document this information in the way they
+please. The database does not, however, contain the information of 190,000 unique
+patients. For many patients several letters are included, as a new visit will often
+result in an updated letter, that is added to the database. We refer to these letters
+as “follow-up” letters.
 To get permission to use a subset of those letters for our experiment, it was
 necessary to ensure that all personal information was removed from them. A medical
 student of the university hospital was therefore paid to manually anonymize 307 of
@@ -222,19 +219,18 @@ During the visit of a patient, physicians write a new or modify an existing lett
 for this patient. Already in this writing phase, we wish to retrieve letters of similar
 patients and present them on demand. Thereby doctors’ decision-making processes
 can be guided by these similar cases if the doctor deems this necessary. The perceived
-suitability of the retrieved letters has to be exceptionally high. Doctors’ additional
+suitability of the retrieved letters has to be exceptionally high. Physicians’ additional
 time resources are usually very limited. Therefore the recommender system will only
 be used in practice if almost all recommendations are considered useful.
 With the dataset mentioned above, we set out to build this kind of recommender
-system. To achieve this goal we first clear our dataset from duplicates with the help
+system. To achieve this goal, we first clear our dataset from duplicates with the help
 of basic information retrieval methods. This process is described in the subsequent
 chapter. We elaborate on methods for hiding and showing specific information from
-the letters in chapter 3. For this goal, we make extensive use of more sophisticated information retrieval methods and introduce them alongside there. Chapter
-4 describes the recommender system itself, the experiment we conducted to assess
-its quality, and the evaluation of the obtained data. In chapter 5 we describe a
-related use case in a research setting and shortly assess how useful the developed
-system can be in practice. Finally, we review shortcomings, conceivable problems,
-and possibilities for further work in the discussion.
+the letters in chapter 3. For this goal, we make extensive use of more sophisticated
+information retrieval methods and introduce them alongside there. Chapter 4 describes the recommender system itself, the experiment we conducted to assess its
+quality, and the evaluation of the obtained data. In chapter 5 we describe a related
+use case in a research setting and shortly evaluate how useful the developed system can be in practice. Finally, we review shortcomings, conceivable problems, and
+possibilities for further work in the discussion.
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -246,8 +242,8 @@ The dataset we acquired from the university hospital contains several duplicate 
 possible. It is clear that finding all of these duplicates manually is not only error2
 prone, but also very time consuming as in principle (n−1) 2+(n−1) letter comparison
 have to be made. With n = 307 this amounts to almost 50,000 comparisons. Personal information, like names and dates of birth, would be helpful for this task,
-but has been removed during anonymization. Therefore we make use of two semiautomatic procedures for duplicate identification. First we use a longest common
-subsequence matching method. This method would be sufficient for our problems,
+but has been removed during anonymization. Therefore we make use of two semiautomatic procedures for duplicate identification. First, we use a longest common
+subsequence matching method. This method would be sufficient for our problem,
 if we only had to deal with exact duplicates. However, we face the issue of followup letters with modified information in our dataset. To overcome this problem we
 use a procedure well known in the information retrieval community: The bag of
 words model for representing texts as vectors, with which it is possible to compute
@@ -262,8 +258,9 @@ means all word order information is disregarded and only the information how oft
 a word is present in a text is encoded (Manning et al., 2008b). (!correct! Mit der
 Art wie das Buch hier zitiert wird bin ich noch nicht glücklich. Es sollte eigentlich
 chapter 2 und 6 sein und nicht 2008 a und b. oder wenigstens a, b, c in derselben
-Reihenfolge wie die chpaters.) More concretely, in the bag of words model documents are represented as fixed length feature vectors, in which every feature is a
-word occurrence count. In the simplest approach every feature is the word or term
+Reihenfolge wie die chpaters.) More concretely, in the bag of words model documents
+are represented as fixed length feature vectors, in which every feature is a word
+occurrence count. In the simplest approach, every feature is the word or term
 frequency tf(t, d) of term t in document d. Where tf(t, d) is the occurrence count
 of word or term t in document d. To compute feature vectors for documents in a
 corpus the vocabulary V of the corpus needs to be established first. Documents are
@@ -283,15 +280,16 @@ of extracting words from such a sequence is known as tokenization (Manning et al
 characters on every whitespace and regard everything in between as a word. This
 approach, however, can easily lead to unexpected results. Consider the example
 string “The doctor treats the patient.”. The naive approach yields the words “The”,
-“doctor”, “treats”, “the” and “patient.”. Note how the last word contains the punctuation character “.”. So even for very easy examples the naive approach does not
+“doctor”, “treats”, “the” and “patient.”. Note how the last word contains the punctuation character “.”. So even for very easy examples, the naive approach does not
 produce expected results. Luckily many more sophisticated algorithms are implemented in ready-to-use open-source software packages.
 Some words are more important or representative of a text than others and so it
 is a useful preprocessing step for the bag of words model to remove some frequently
-appearing but uninformative words, so called stop words. A list of English stop
+appearing but uninformative words, so-called stop words. A list of English stop
 words comprises words like “the”, “a”, “just” or “some”. While they are necessary
 for the grammatical structure of a language, they do not convey much information
 about the similarity of documents (Manning et al., 2008c).
-Additionally for the bag of words model we are not interested in the exact grammatical form in which a word is present in a text. Removing this unnecessary
+Additionally, for the bag of words model, we are not interested in the exact
+grammatical form in which a word is present in a text. Removing this unnecessary
 information is achieved with a procedure called stemming, that maps word appearances to their stem (Manning et al., 2008c). It maps words such as “doctors” and
 “doctor” both to their common stem “doctor”. Both removal of stop words and
 stemming seem at first glance to disregard information. This is true, but they allow
@@ -334,7 +332,7 @@ for clinical data
 7
 
 Application and shortcomings
-The vectors vd1 and vd2 live in a four dimensional vector space and we can either
+The vectors vd1 and vd2 live in a four-dimensional vector space and we can either
 use them as feature vectors for a machine learning task or compute a measure of
 similarity between them. The standard similarity measure used for bag of words
 1 ,v2 i
@@ -358,9 +356,9 @@ of words model regards these three forms of the same word as completely dissimil
 Even worse, when spelled “Chronic lymphocytic leukemia”, the phrase is regarded
 as three distinct words, having nothing in common with each other or the words
 above. Still the bag of words model is a standard approach for information retrieval
-problems, as it has many desirable properties. Texts can be straight forwardly
-embedded in a vector space (i.e. represented as vectors) and these embeddings can
-be used as fixed length feature representations for machine learning tasks.
+problems, as it has many desirable properties. Texts can be straight-forwardly
+embedded in a vector space (i.e. represented as vectors) and these embeddings
+can be used as fixed length feature representations for machine learning tasks.
 
 2.2
 
@@ -374,7 +372,7 @@ The longest common subsequence matching procedure scans two documents and
 finds the longest sequence of characters they have in common. If the length of this
 sequence exceeds a threshold the pair is marked as possibly duplicate and manually
 inspected. To get more hits we lower the threshold until the false positive rate
-becomes too high. Secondly we preprocess all texts as described above and map
+becomes too high. Secondly, we preprocess all texts as described above and map
 them into the bag of words representation. We use the cosine similarity as a measure
 of relatedness between pairs and mark all pairs with distance lower than a threshold
 as possibly duplicate and again iteratively decrease the threshold.
@@ -415,9 +413,9 @@ first step towards this goal is the automatic extraction of the relevant paragra
 
 Paragraph Extraction
 
-The XML data format of the letters allows to automatize inspection of rather finegrained structures present in the letters. One can automatically determine boldfaced
+The XML data format of the letters allows automatized inspection of rather finegrained structures present in the letters. One can automatically determine boldfaced
 characters for example. Because of this and because the documents are similar in
-structure, we use a rule based approach for extracting the individual paragraphs. A
+structure, we use a rule-based approach for extracting the individual paragraphs. A
 simplified rule to find the beginning of the diagnosis paragraph is shown in pseudocode:
 diagnosisRegex = ’[dD]iagnose(n)?’
 text = thisXmlNode.text()
@@ -429,7 +427,7 @@ end
 A regular expression is defined that matches the word diagnosis (the German
 word for diagnosis is "Diagnose"). The text of every node in the XML tree is checked
 for a regular expression match and whether it is boldfaced. If an XML node matches
-those criteria and is preceded by a newline, it is marked as the beginning of the diagnosis paragraph. With a set of rules like the one above we automatically extract
+those criteria and is preceded by a newline, it is marked as the beginning of the
 
 9
 
@@ -446,20 +444,25 @@ First Principal Component
 Figure 3.1: 2D PCA projection of bag of words representation of one incorrectly extracted
 diagnosis paragraph and several correctly extracted ones.
 
+diagnosis paragraph. With a set of rules like the one above we automatically extract
 the paragraphs of interest from the documents. This approach, however, is not
 completely reliable, as the doctors are free to write the documents in the way they
 please. Indeed we find several wrongly extracted paragraphs, that e.g. include the
-subsequent paragraph as well. For our dataset it is possible to check the extraction process by hand. However, this is tedious work and is not scalable to bigger
-datasets. We therefore explore whether we can in principle make use of other automated methods to find paragraphs for which the rule based extraction process does
-not produce desired results. We therefore take several correctly extracted and one
+subsequent paragraph as well. For our dataset it is possible to check the extraction
+process by hand. However, this is tedious work and is not scalable to bigger datasets.
+We, therefore, explore whether we can in principle make use of other automated
+methods to find paragraphs for which the rule-based extraction process does not
+produce desired results. We, therefore, take several correctly extracted and one
 incorrectly extracted diagnosis paragraphs and convert them to their bag of words
-representation. To get a feeling for how these vectors behave we use Principle Component Analysis (PCA) to get a lower dimensional approximation of the vectors.
+representation. To get a feeling for how these vectors behave we use Principle
+Component Analysis (PCA) to get a lower dimensional approximation of the vectors.
 PCA finds the linear subspace with desired dimensionality of the original space that
 preserves as much of the variance of the vectors in the original space as possible.
-Thereby one can gain a low dimensional approximation of the high dimensional data
-and use this approximation for visual inspection. See figure 3.1 for a 2D PCA plot
-of the bag of words representation of the correctly and incorrectly extracted diagnosis paragraph. As is apparent from the figure, it would not be a hard task to
-automatically detect the outlier. In this case the incorrectly extracted paragraph
+Thereby one can gain a low dimensional approximation of the high dimensional
+data and use this approximation for visual inspection. See figure 3.1 for a 2D PCA
+plot of the bag of words representation of the correctly and incorrectly extracted
+diagnosis paragraph. As is apparent from the figure, it would not be a hard task
+to automatically detect the outlier. In this case the incorrectly extracted paragraph
 includes not only the diagnosis, but also the therapy history. In cases like this with
 additional text present, it is an easy task to identify the incorrect ones. A harder
 problem arises, when only parts of the paragraph of interest have been extracted.
@@ -479,18 +482,17 @@ Paragraph Classification
 
 In our sample dataset, we can automate paragraph extraction as shown above. We
 can also detect for which paragraphs the procedure produces incorrect results. This
-approach works well only because the documents in our dataset generally adhere to a
-rough structure. For datasets from other clinics constructing a rule based extraction
-procedure is not only time consuming, it might not be possible at all. We therefore
-test an approach of classifying the extracted paragraphs into three categories—
-greeting, diagnosis and anamnesis. Our findings show that, surprisingly, this is not
-a hard problem. On unseen datasets it might therefore be possible to split text into
-unlabeled paragraphs with a basic rule based approach. One can possibly define
-a new paragraph to begin after a blank line and automatically label the resulting
-paragraphs with a predefined category. This way one would be able to hide or show
-specific information on demand even on datasets from other clinics.
-We approach the problem again from a vector space based view-point. We
-compute the vector representation for every paragraph and use a classifier trained on
+approach works well only because the documents in our dataset generally adhere
+to a rough structure. For datasets from other clinics constructing a rule-based
+extraction procedure is not only time consuming, it might not be possible at all.
+We, therefore, test an approach of classifying the extracted paragraphs into three
+categories—greeting, diagnosis and anamnesis. Our findings show that, surprisingly,
+this is not a hard problem. On unseen datasets, it might, therefore, be possible to
+split text into unlabeled paragraphs with a basic rule-based approach. One can
+possibly define a new paragraph to begin after a blank line and automatically label
+the resulting paragraphs with a predefined category. This way one would be able to
+hide or show specific information on demand even on datasets from other clinics.
+We approach the problem again from a vector space based viewpoint. We compute the vector representation for every paragraph and use a classifier trained on
 these representations to predict the correct paragraph label. To get the best results
 we compare different text embedding methods. We test the standard bag of words,
 term frequency—inverse document frequency (tf-idf) and paragraph vector models.
@@ -539,7 +541,7 @@ more expressive for rare words (Manning et al., 2008b).
 Latent Semantic Analysis
 An often occurring machine learning (ML) problem is that very high dimensional
 feature vectors, as occurring in bag of words and tf-idf models, tend to generalize
-poorly in subsequent tasks like classification. In those cases it is desirable to have
+poorly in subsequent tasks like classification. In those cases, it is desirable to have
 a more condensed lower dimensional feature representation of documents that still
 captures most of the variance in the bag of words representation. Latent semantic
 analysis (LSA) of Deerwester et al. (1990) in its simplest form takes the plain bag
@@ -575,7 +577,7 @@ have an intuitive interpretation as word counts, but can still be used as featur
 vectors for subsequent ML tasks or can be analyzed for similarity. Deerwester et al.
 (1990) argue that the resulting features have several appealing properties. The LSA
 features can simply be viewed as a noise-reduced version of the original features,
-but according to the original paper they can also better deal with linguistic issues
+but according to the original paper, they can also better deal with linguistic issues
 such as synonymy and polysemy. This works because every original observation (i.e.
 document) is represented as a linear combination of k hidden (or latent) semantic
 concepts. Terms that often appear together (i.e. are semantically related) will then
@@ -591,20 +593,20 @@ for clinical data
 
 The value of k is a parameter of the model and has to be specified by the
 researcher. LSA can be used not only with the bag of words space as a basis, but
-also with the tf-idf space. Throughout this thesis we use LSA in the latter way.
+also with the tf-idf space. Throughout this thesis, we use LSA in the latter way.
 Latent Dirichlet Allocation
 A popular probabilistic method for finding latent semantic features of documents in
-a corpus is latent dirichlet allocation (LDA). As with LSA the rationale is that it
+a corpus is latent dirichlet allocation (LDA). As with LSA, the rationale is that it
 would be useful to find a shorter or lower dimensional description for documents in
-the bag of words vector space format for subsequent tasks. In the LDA context the
+the bag of words vector space format for subsequent tasks. In the LDA context, the
 latent features are called topics and texts are represented as probabilistic mixtures
 of these topics. A topic is represented by a probability distribution over words and
 so a document is represented as a probabilistic sample from several topic distributions over words. More specifically that means that documents in LDA space are
 represented by vectors of dimensionality k. The elements of one vector then represent the strength of association of the document with the respective topic. As in
-the case of LSA the number of topics k is a parameter and needs to be specified by
+the case of LSA, the number of topics k is a parameter and needs to be specified by
 the researcher (Blei et al., 2003).
 Word Vectors
-In the standard bag of words model no relationship between words is encoded, i.e.
+In the standard bag of words model, no relationship between words is encoded, i.e.
 every word is dissimilar from every other word. Thereby a lot of information is
 lost, as e.g. the words “car” and “automobile” are considered by the system to be as
 similar to each other as to the word “blue”. One way to encode relationships between
@@ -612,7 +614,7 @@ words is to embed them in a vector space. Just like the way document similaritie
 can be computed from their distances in the vector space model, similarities of words
 can be computed, if the words are represented as vectors. A first successful approach
 to this problem used the LSA model. Here a single word can be represented as a
-pseudo document and thereby be mapped into the LSA space. The resulting vector
+pseudo-document and thereby be mapped into the LSA space. The resulting vector
 in the LSA feature space can be considered a vector representation for the word and
 be used for comparisons with other words (Deerwester et al., 1990).
 Bengio et al. (2003) introduced a neural language model that uses word vectors
@@ -647,13 +649,13 @@ context window of maximal size w. The current window size c is sampled uniformly
 from range(1, w) at every iteration. This results in 2c predictions for every center
 word considered. The model parameters are updated with gradient descent. After
 training, either only the input word vectors or the input and output word vectors
-are used. In the latter case they are either averaged or concatenated to produce the
-final word vectors used for subsequent tasks.
+are used. In the latter case, they are either averaged or concatenated to produce
+the final word vectors used for subsequent tasks.
 A note on computational cost: The softmax output layer is very inefficient as
 it requires the computation of |V | scalar products (every word in the vocabulary).
 As a first speed up a hierarchical softmax (Morin and Bengio, 2005) is used as
 an approximation to the real softmax, that reduces the number of scalar product
-computations to log2 (|V |) (Mikolov, Chen, Corrado and Dean, 2013). In a subsequent publication the authors introduced a simplified variant of Noise Contrastive
+computations to log2 (|V |) (Mikolov, Chen, Corrado and Dean, 2013). In a subsequent publication, the authors introduced a simplified variant of Noise Contrastive
 Estimation (Gutmann and Hyvärinen, 2012), called Negative Sampling, that further reduces the computational complexity, while still giving useful word vectors
 (Mikolov, Sutskever, Chen, Corrado and Dean, 2013).
 With these architecture and approximation simplifications the Word2Vec model
@@ -664,7 +666,7 @@ Paragraph Vector—An extension of Word2Vec
 A simple extension of the word2vec model allows to obtain vectors for sentences
 or longer passages of text. An additional vector is introduced for every piece of
 text, that we regard as a separate entity (a sentence, a paragraph or a document).
-This so called paragraph vector is then used in two different ways in the extensions
+This so-called paragraph vector is then used in two different ways in the extensions
 of CBOW and skip-gram. In the Distributed Memory (DM) model, an extension
 of CBOW, the paragraph vector is used in combination (average or concatenation)
 with the vectors of surrounding words to predict a center word. In the Distributed
@@ -690,7 +692,7 @@ epochs for both phases must be specified beforehand (Le and Mikolov, 2014).
 Classification Results
 After having introduced the additional embedding methods tf-idf, LSA, LDA and
 paragraph vector, we now use their embeddings for classification of the paragraphs
-into respective categories. Therefore we take all the extracted greeting, diagnosis
+into respective categories. Therefore we take all the extracted greeting, diagnosis,
 and anamnesis paragraphs and map them to one of the embedding representations.
 Then logistic regression is trained on a training portion of the dataset and the
 performance evaluated on a testing portion. As our dataset is relatively small we
@@ -703,9 +705,9 @@ paragraph vector method has several rather unintuitive hyperparameters, that nee
 tuning. We start with hyperparameters reported as working well in the literature
 (Lau and Baldwin, 2016). From there we use a randomized search strategy to find
 better fitting parameters for our specific problem. Results of our evaluation can
-be found in table 3.1. Several things are noteworthy about the results. First it is
+be found in table 3.1. Several things are noteworthy about the results. First, it is
 surprisingly easy in general to use a small number of training paragraphs (less than
-300 per category) to predict its label with very high accuracy. Second all methods
+300 per category) to predict its label with very high accuracy. Second, all methods
 are indeed outperformed by the more recent paragraph vector approach. However,
 the paragraph vector performance comes with the cost of needing to tune many
 hyperparameters, whose influence is not intuitively clear. Third LSA performance
@@ -766,7 +768,7 @@ vector space. Bottom: Tf-idf vector space.
 
 just using a linear classifier, it is also easy to see that the paragraph vectors are easier
 separable (although not linearly separable in the 2D projection). We conclude that
-paragraph vector is the best suited method for this classification task. Additionally
+paragraph vector is the best-suited method for this classification task. Additionally,
 we note that it works surprisingly well with very limited training data.
 
 A textual recommender system and other text mining applications
@@ -837,7 +839,7 @@ Continous Measure Score
 0.830
 
 Table 4.1: Performance of different embedding methods (with tuned hyperparameters) on
-the grouping dataset evaluated with the continous measure.
+the grouping dataset evaluated with the continuous measure.
 
 are the similar letters of the grouping dataset considered to be among the top n most
 relevant by the recommender system. We call this the top-n measure. This measure,
@@ -849,10 +851,11 @@ algorithm. We therefore develop a continuous measure, that assigns a score from
 the interval [0, 1] for all possible ranking situations. A score of 1 is given, if the truly
 similar letters occupy the foremost positions, a score of 0, if the truly similar letters
 occupy the last positions, a score of 0.5, if the truly similars occupy the positions in
-the centre. A score of 0.5 is expected, if the algorithm sorted the letters by chance.
-Based on the continous measure we first do hyperparameter tuning for the embedding methods as applicable. Afterwards we select the best performing embedding method the same way. Table 4.1 shows the scores obtained by each embedding
-method. Generally the performance is high above chance level. It is noteworthy
-that the simple and hyperparameterless tf-idf method outperforms all other methods including LDA and the recent and hard-to-tune paragraph vector. We therefore
+the center. A score of 0.5 is expected, if the algorithm sorted the letters by chance.
+Based on the continuous measure we first do hyperparameter tuning for the embedding methods as applicable. Afterwards, we select the best performing embedding method the same way. Table 4.1 shows the scores obtained by each embedding
+method. Generally, the performance is high above chance level. It is noteworthy
+that the simple and hyperparameterless tf-idf method outperforms all other methods
+including LDA and the recent and hard-to-tune paragraph vector. We, therefore,
 choose tf-idf as the embedding method for the recommender system.
 There is a relatively intuitive reason why tf-idf works well for our problem. It
 is plausible that the main features for human similarity judgments of letter pairs
@@ -866,7 +869,7 @@ Recommendation Quality—Experimental Setup
 
 Having fine-tuned the recommendation procedure as described above the next step
 consists of assessing the quality of the recommendation. We test this quality in a
-psychological experiment. To this end we probe the similarity ratings that subjects
+psychological experiment. To this end, we probe the similarity ratings that subjects
 give to pairs of letters and compare them to the similarity measure of our algorithm.
 We construct an experiment with 32 trials, in which subjects have to compare
 letter pairs for similarity. More precisely that means we select 32 letters as “reference
@@ -889,7 +892,7 @@ are selected based on the cosine similarity between the reference letter and all
 letters. These four are the ones with highest cosine similarity to the reference letter
 according to our algorithm. That means they are the best matches to the reference
 letter according to our algorithm—or equivalently, they are ranked on places one to
-four given a reference letter. The fifth comparison letter is randomly selected among
+four given a reference letter. The fifth comparison letter is randomly selected from
 all other letters and then fixed. Subjects are presented with one reference and one
 comparison letter at a time. After rating their similarity they are presented with the
 next comparison letter. Once a trial is done, i.e. five comparison letters are rated,
@@ -918,7 +921,7 @@ similarity based on diagnosis or based on therapy. We also believe that experts 
 novices (or students) base their judgments on different features. Experts generally
 have higher agreement when categorizing stimuli, than novices do, and usually use
 more abstract, less accessible features (Chi et al., 1981; Linhares and Brum, 2007;
-León-Villagrá and Jäkel, 2013). In line with these results we find that the inter-rater
+León-Villagrá and Jäkel, 2013). In line with these results, we find that the inter-rater
 agreement is higher among the experts than among the students (expert agreement:
 0.76; student agreement: 0.59). We measure this agreement with the spearman rank
 correlation coefficient, that produces a number between -1 (perfect anti-correlation)
@@ -926,7 +929,7 @@ and 1 (perfect correlation). Spearman’s coefficient is used instead of the oft
 cohen’s kappa coefficient, because the former can deal with ordinal data, whereas
 the latter can only deal with nominal data (Spearman, 1904; Cohen, 1960). Our
 number of subjects is quite low for concluding that students rate letter pairs worse
-than experts. Still as our findings are in line with well established research, we
+than experts. Still, as our findings are in line with well-established research, we
 discard the student rating data for further analysis.
 
 A textual recommender system and other text mining applications
@@ -953,9 +956,9 @@ histogram of the differences in subject rating of the best fitting and the rando
 selected letter pairs. The figure also shows the mean difference and a 95% interval
 for this mean. The confidence interval was calculated using the standard error of the
 mean (sem). The lower and upper bound is then calculated as bound1/2 = mean ±
-1.96 ∗ sem respectively. This estimation of the confidence interval, however relies on
-the assumption that sample means are normally distributed. As those means are
-calculated over 30 values in each sample, this assumption is hardly quesitionable
+1.96 ∗ sem respectively. This estimation of the confidence interval, however, relies
+on the assumption that sample means are normally distributed. As those means
+are calculated over 30 values in each sample, this assumption is hardly questionable
 in most scenarios due to the central limit theorem. As the differences in subject
 ratings are discrete values bounded between -6 and +6 we might face the issue of
 a skewed distribution because of bounding problems, though. Therefore we verify
@@ -1075,13 +1078,12 @@ son correlation: 0.96) of those two variables, suggesting that our recommendatio
 letter pairs that were rated into one of the
 pects of perceived similarity.
 seven possible rating categories.
-Next we analyze the relationship of
-the cosine similarity and the subject ratings more thoroughly. We therefore draw all letter pairs as points in a plot of average
-rating of a pair versus cosine similarity of a pair. See figure 4.3 for this visualization.
-We mark follow-up pairs green and the random comparison letter pairs red. From
-the figure it is apparent that follow-up letters can be easily distinguished with the
-cosine similarity from other letter pairs. The randomly selected pairs mostly have
-a low cosine similarity as expected, however several of them are still rated rather
+Next, we analyze the relationship of
+the cosine similarity and the subject ratings more thoroughly. We, therefore, draw all letter pairs as points in a plot of
+average rating of a pair versus cosine similarity of a pair. See figure 4.3 for this visualization. We mark follow-up pairs green and the random comparison letter pairs
+red. From the figure it is apparent that follow-up letters can be easily distinguished
+with the cosine similarity from other letter pairs. The randomly selected pairs
+mostly have a low cosine similarity as expected, however several of them are still
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1117,15 +1119,15 @@ cosine similarity
 Figure 4.3: Average subject rating versus cosine similarity of all letter pairs. Follow-up
 pairs are marked green, random ones red.
 
-highly by subjects. Some well fitting random letter pairs are expected by chance
-and after manual inspection of these pairs we settle on this conclusion.
+rated rather highly by subjects. Some well fitting random letter pairs are expected
+by chance and after manual inspection of these pairs we settle on this conclusion.
 
 Considerations of Precision and Recall
 A standard way to assess the quality of an information retrieval system uses two
 measures called precision and recall. Precision and recall are used as measures of
 the goodness of an information retrieval system, when all documents are binarily
 classified as either relevant or irrelevant given a current information need or query
-(Manning et al., 2008a). In our case a query is a reference letter and we ask the
+(Manning et al., 2008a). In our case, a query is a reference letter and we ask the
 question of whether a comparison letter is relevant or irrelevant given this reference
 letter. Precision is then a measure of the correctness of the retrieved results. In
 probabilistic terms it is the probability that a document is relevant given that it is
@@ -1180,7 +1182,7 @@ Average number of retrieved letters
 
 0
 
-Figure 4.4: (a): Precision as a functin of rank cut-off. (b): Precision as function of a
+Figure 4.4: (a): Precision as a function of rank cut-off. (b): Precision as function of a
 varying cosine similarity threshold. The x-axis shows the average number of retrieved letters
 per reference letter at the threshold instead of the threshold itself.
 Note that both plots start at the same point, where all letters with rank four or lower are
@@ -1195,20 +1197,20 @@ large fraction of relevant documents is retrieved. However, an interesting quest
 somewhat related to recall, is whether or not the most relevant letters are retrieved
 first. We will address this question after examining the precision of our system.
 Note that for another use case recall might be more important than precision.
-In our usage scenario a possible implementation of the system could always
+In our usage scenario, a possible implementation of the system could always
 retrieve the four highest ranked letters to a given reference letter. Therefore we
 ask the question of what precision we can achieve, when recommending the "best"
 four or even fewer letters. Figure 4.4a shows what level of precision the system can
 achieve, when stopping retrieval of letters at a given rank. As is apparent from this
 figure precision is rather low at a level of roughly 0.55 when presenting all four "best"
-matches. Unfortunately not much increase in precision can be gained by presenting
+matches. Unfortunately, not much increase in precision can be gained by presenting
 a fixed number of fewer letters than four, with a maximal precision of 0.59 when
 presenting the two letters with highest cosine similarity. This means that little more
 than every second retrieved letter is relevant. From figure 4.3 it is apparent, however,
 that we can do better, when incorporating information about the absolute cosine
 similarity and not only the ranking of the letters. In this figure it is apparent, that we
 can get up to a precision of 1, if we present only letters with a cosine similarity higher
-than 0.4. This in turn means that only for few reference letters some comparison
+than 0.4. This, in turn, means that only for few reference letters some comparison
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1229,7 +1231,7 @@ is of highest value to doctors in cases of very uncommon patients. In those case
 however, it is probably least likely to find other letters with high cosine similarity
 to the current one in the database. Therefore the very promising results of figure
 4.4b have to be taken with a grain of salt for real application scenarios.
-Next we turn to the question whether the most relevant letters are retrieved
+Next, we turn to the question whether the most relevant letters are retrieved
 first. This question is hard to answer, since we only know of five letters how relevant they are to a reference letter. It remains unclear what rating subjects would
 have assigned to the other letters from our database. A related question though
 can provide some insight into this problem. We look at how well the ranking of the
@@ -1251,9 +1253,9 @@ reference letter will have much higher cosine similarity, than is the case now. 
 is because in a much larger database more well fitting documents are expected for
 each reference letter. For figure 4.3 this means, that we would expect almost no blue
 points on the left and many more in the region around a cosine similarity of 0.4.
-These points most likely will be rated highly by subjects, as are all points with such
-a cosine similarity in our experiment. In figure 4.4a and 4.4b this effect probably
-shifts both curves up higher. Second there is reason to believe that some of the letter
+These points most likely will be rated highly by subjects, as are all points with such a
+cosine similarity in our experiment. In figure 4.4a and 4.4b this effect probably shifts
+both curves up higher. Second, there is reason to believe that some of the letter
 pairs with low cosine similarity, but high subject rating are due to psychological
 adjusting. If during one trial only rather badly fitting letters are presented, we
 
@@ -1320,20 +1322,22 @@ relevant although they have very low cosine similarity and will therefore probab
 not be retrieved in practice. If the assumption, that subjects adjust their rating
 scales, is correct, then some of the letters in this region are probably less relevant
 than it seems from our data.
-Finally one can ask whether there are possibilities to improve the system further. The tf-idf embedding method does not have hyperparameters, so no further
-tuning of those is possible. We believe, however, that combining similarity measures
-from several embedding approaches is useful. Of the five embedding methods we
-tested only paragraph vector is a promising option for improving the results of the
-retrieval. Bag of words is more or less the simple basis for tf-idf, LSA is highly
-correlated with tf-idf as it is a feature compressed version of the latter, LDA performed severely worse than all other methods, leaving only paragraph vector. This
-method performed almost as well as tf-idf during our fine-tuning and computes feature vectors in a very different way, possibly complementing tf-idf well. Indeed we
-find cues that combining these two methods yields substantially better results. We
-again compare the ratings given to letter pairs from two groups. One of the groups
-consists of the letters from our experimental dataset, that paragraph vector ranks
-on the first place out of all letters from our complete database. I.e. letters in this
-group are ranked among the top four by tf-idf and top one by paragraph vector
-in our whole dataset. We only find 9 of these letters out of the 30 possible trials.
-The other group consists of the 9 randomly selected letters from the corresponding
+Finally one can ask whether there are possibilities to improve the system further.
+The tf-idf embedding method does not have hyperparameters, so no further tuning
+of those is possible. We believe, however, that combining similarity measures from
+several embedding approaches is useful. Of the five embedding methods we tested
+only paragraph vector is a promising option for improving the results of the retrieval.
+Bag of words is more or less the simple basis for tf-idf, LSA is highly correlated with
+tf-idf as it is a feature compressed version of the latter, LDA performed severely
+worse than all other methods, leaving only paragraph vector. This method performed almost as well as tf-idf during our fine-tuning and computes feature vectors
+in a very different way, possibly complementing tf-idf well. Indeed we find clues that
+combining these two methods yields substantially better results. We again compare
+the ratings given to letter pairs from two groups. One of the groups consists of
+the letters from our experimental dataset, that paragraph vector ranks on the first
+place out of all letters from our complete database. I.e. letters in this group are
+ranked among the top four by tf-idf and top one by paragraph vector in our whole
+dataset. We only find 9 of these letters out of the 30 possible trials. The other group
+consists of the 9 randomly selected letters from the corresponding trials. Again we
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1342,21 +1346,21 @@ for clinical data
 
 Chapter 4. Recommender System
 
-trials. Again we look at a histogram of differences in rating in figure 4.5a and the
-distribution of average differences for 100.000 bootstrap resamples in figure 4.5b.
-First, one has to note that neither the bootstrap nor the standard calculated means
-and confidence intervals are to be trusted completely at a sample size of 9. Additionally, one can see from figure 4.5b that the assumption of normality does not hold
-perfectly this time. Indeed we face an upward bounding issue and the distribution’s
-left tail is longer, than the right tail. Due to the violation of the assumption of
-normality, the confidence interval estimates differ. Comparing the mean and confidence interval estimates with figures 4.1a and 4.1b, where only tf-idf information
-was used, though, we see that additionally using information from the paragraph
-vector embedding improves results substantially. The mean of the average difference
-in ratings for example is improved from 1.93 to 3.69 units on the rating scale from 1
-to 7. Therefore we conclude that using information from both embedding methods
-is highly useful, although we distrust the estimation of the mean to some degree
-due to the small sample size. In summary we believe that work addressing how to
-combine information from different embedding methods is a worthwhile task and
-should be undertaken by further research.
+look at a histogram of differences in rating in figure 4.5a and the distribution of
+average differences for 100.000 bootstrap resamples in figure 4.5b. First, one has to
+note that neither the bootstrap nor the standard calculated means and confidence
+intervals are to be trusted completely at a sample size of 9. Additionally, one can
+see from figure 4.5b that the assumption of normality does not hold perfectly this
+time. Indeed we face an upward bounding issue and the distribution’s left tail is
+longer, than the right tail. Due to the violation of the assumption of normality, the
+confidence interval estimates differ. Comparing the mean and confidence interval estimates with figures 4.1a and 4.1b, where only tf-idf information was used, though,
+we see that additionally using information from the paragraph vector embedding
+improves results substantially. The mean of the average difference in ratings, for
+example, is improved from 1.93 to 3.69 units on the rating scale from 1 to 7. Therefore we conclude that using information from both embedding methods is highly
+useful, although we distrust the estimation of the mean to some degree due to the
+small sample size. In summary we believe that work addressing how to combine
+information from different embedding methods is a worthwhile task and should be
+undertaken by further research.
 
 A textual recommender system and other text mining applications
 for clinical data
@@ -1389,7 +1393,7 @@ We can address this use case with our embedding methods in the following way.
 Search System
 
 To obtain our goal of retrieving the letters with the required features, we make use of
-a hybrid approach of an exemplar classifier and logistic regression. In the beginning
+a hybrid approach of an exemplar classifier and logistic regression. In the beginning,
 we use the exemplar classifier to retrieve more samples. The next document to be
 retrieved is the one with highest average cosine similarity to the thus far obtained
 true positive samples. Note that in the beginning this is equivalent to the standard
@@ -1440,12 +1444,12 @@ to obtain a new true positive sample. In the example of cll we have to look at
 roughly one false positive for every five true positives we retrieve, in the case of
 100% retrieval. This makes it very convenient to search the database for more cll
 patients. However, as one can see from the figure it works considerably less well
-for other diseases. Still even in the case of dlbcl we only have to look at 3.5 false
-positives to get one true positive sample. For research purposes we deem this value
+for other diseases. Still, even in the case of dlbcl we only have to look at 3.5 false
+positives to get one true positive sample. For research purposes, we deem this value
 good enough. It is also apparent from the figure that often it is relatively hard to
 retrieve the first match and becomes easier afterwards. One can overcome this initial
-phase by providing the system with several positive examples to begin with.
-With this evaluation we showed that it is in principle possible to construct a
+phase by providing the system with several positive examples, to begin with.
+With this evaluation, we showed that it is in principle possible to construct a
 research retrieval system that is usable in practice. It remains unknown though,
 how well this system works for less evident features than diseases. One might be
 interested in relatively less defining features of the document’s text, than disease.
@@ -1504,30 +1508,30 @@ Discussion
 In the motivation section of our introduction we discuss several cognitive science
 results about human reasoning. We present evidence for the assumption that humans
 often reason from examples stored in memory. The theory on this aspect of cognitive
-science is not as clear-cut, though. There is in fact a great controversy between two
+science is not as clear-cut, though. There is, in fact, a great controversy between two
 different views on this subject. So called exemplar theories indeed argue that humans
 reason based on specific examples stored in memory. The contrary viewpoint—
 prototype theory—suggests that humans form abstract prototypes and cognitive
 processes are based on these prototypes rather than specific examples. A second,
 complicating issue arises, because there is, additionally, evidence that humans reason
-with conscious hypothesis testing rather than pattern matching (based on examples
-or prototypes). In certain situations it is indeed plausible
-In this thesis we have developed a prototype for an automatized recommendation
+with conscious hypothesis testing rather than automatic pattern matching (based
+on examples or prototypes).
+In this thesis, we have developed a prototype for an automatized recommendation
 system on a physician letter database. We conducted an experiment to evaluate
 whether or not this system is usable in practice. Thereby we found strong evidence
-that, indeed, the system performs well enough to deploy it in a clinic. The next steps
-for this project therefore consist in extending this prototype to work on the large
-database of the university hospital Freiburg. We already foresee several challenges
-that will arise when working on this extended database. First, new dataformats
-(other than Microsoft Word XML files) will have to be processed. Second, the
-current algorithms are not optimized for speed or low memory footprint. Surely
+that, indeed, the system performs well enough to deploy it in a clinic. The next
+steps for this project, therefore, consist in extending this prototype to work on
+the large database of the university hospital Freiburg. We already foresee several
+challenges that will arise when working on this extended database. First, new data
+formats (other than Microsoft Word XML files) will have to be processed. Second,
+the current algorithms are not optimized for speed or low memory footprint. Surely
 some work will have to address these kinds of issues, when extending the database
 by several orders of magnitude.
 Then a usable prototype will have to be made available for doctors in the hospital.
-Initially we will have to encourage them to use the recommender. After a testing
+Initially, we will have to encourage them to use the recommender. After a testing
 period their personal critiques can be collected and assessed. If this yields positive
 results, the system can be incorporated into the clinic’s documentation system. At
-that point recommendations can be made automatically available during the writing
+that point, recommendations can be made automatically available during the writing
 of a new letter.
 It will also be possible to extend the system to work on databases of several
 clinics. If these databases are used collectively for the recommendation procedure
@@ -1539,7 +1543,7 @@ clinics. If these databases are used collectively for the recommendation procedu
 Chapter 6. Discussion
 
 issues of anonymization will arise. Doctors from one clinic are not allowed to view the
-patient data from other clinics without the patient’s consent. In a realistic scenario
+patient data from other clinics without the patient’s consent. In a realistic scenario,
 the system might only tell doctors, that letters of similar patients are available
 at other clinics and the doctor has to obtain those letters manually. Thereby the
 usefulness will suffer greatly, though, and this procedure will surely only be done for
@@ -1823,6 +1827,6 @@ belief, original and the result of my own investigations, except as acknowledged
 has not been submitted, either in part or whole, for a degree at this or any other
 university.
 
-Osnabrück, June 15, 2017
+Osnabrück, June 17, 2017
 
 
